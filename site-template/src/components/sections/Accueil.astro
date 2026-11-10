@@ -1,0 +1,47 @@
+---
+import { config, url, telLien, lienItineraire } from '../../lib/config';
+const s = config.sections.accueil!;
+const c = config.commerce;
+const cible = config.sections.devis?.actif ? '#devis'
+  : config.sections.reservation?.actif ? '#reservation'
+  : '#contact';
+const avis = config.sections.avis;
+---
+<section id="accueil" class="accueil">
+  <div class="conteneur accueil__grille">
+    <div>
+      {c.slogan && <span class="surtitre">{c.slogan}</span>}
+      <h1>{c.nom}</h1>
+      {s.accroche && <p class="accueil__accroche">{s.accroche}</p>}
+      <div class="accueil__boutons">
+        <a class="bouton" href={url(`/${cible}`)}>{s.boutonPrincipal ?? 'Nous contacter'}</a>
+        <a class="bouton bouton--secondaire" href={`tel:${telLien(c.telephone)}`}>Appeler</a>
+        <a class="bouton bouton--secondaire" href={lienItineraire()} target="_blank" rel="noopener">Itinéraire</a>
+      </div>
+      {avis?.actif && (
+        <p class="accueil__note">
+          <span class="etoiles" aria-hidden="true">★★★★★</span>
+          <strong>{avis.note.toLocaleString('fr-FR')}/5</strong> · {avis.nombre} avis Google
+        </p>
+      )}
+    </div>
+    {s.image && (
+      <div class="visuel accueil__visuel">
+        <img src={url(s.image.src)} alt={s.image.alt} width="800" height="600" fetchpriority="high" />
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .accueil { padding: clamp(40px, 8vw, 96px) 0; }
+  .accueil__grille { display: grid; gap: 40px; align-items: center; grid-template-columns: 1.05fr 1fr; }
+  .accueil__accroche { font-size: 1.2rem; max-width: 34ch; }
+  .accueil__boutons { display: flex; flex-wrap: wrap; gap: 12px; margin: 28px 0 20px; }
+  .accueil__note { font-size: .95rem; }
+  .accueil__visuel { aspect-ratio: 4 / 3; box-shadow: 0 20px 50px rgba(0,0,0,.08); }
+  @media (max-width: 860px) {
+    .accueil__grille { grid-template-columns: 1fr; }
+    .accueil__visuel { order: -1; }
+  }
+</style>

@@ -1,0 +1,40 @@
+---
+import { config } from '../../lib/config';
+const s = config.sections.tarifs!;
+---
+<section id="tarifs" class="section section--claire">
+  <div class="conteneur tarifs">
+    <h2>{s.titre}</h2>
+    {s.intro && <p class="section__intro">{s.intro}</p>}
+    <dl class="carte">
+      {s.lignes.map((l) => (
+        <div class="ligne">
+          <dt>
+            {l.libelle}
+            {l.detail && <small>{l.detail}</small>}
+          </dt>
+          <dd>{l.prix}</dd>
+        </div>
+      ))}
+    </dl>
+    {s.note && <p class="tarifs__note">{s.note}</p>}
+  </div>
+</section>
+
+<style>
+  .tarifs { max-width: 760px; }
+  dl { margin: 0; padding: 8px 24px; }
+  .ligne {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px dashed color-mix(in srgb, var(--principale) 20%, transparent);
+  }
+  .ligne:last-child { border-bottom: 0; }
+  dt { font-weight: 600; }
+  dt small { display: block; font-weight: 400; color: color-mix(in srgb, var(--texte) 65%, transparent); }
+  dd { margin: 0; white-space: nowrap; color: var(--principale); font-weight: 700; }
+  .tarifs__note { margin-top: 16px; font-size: .9rem; color: color-mix(in srgb, var(--texte) 70%, transparent); }
+</style>

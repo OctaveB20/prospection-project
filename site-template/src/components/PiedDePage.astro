@@ -1,0 +1,33 @@
+---
+import { config, url, adresseComplete, telLien } from '../lib/config';
+const r = config.commerce.reseaux ?? {};
+const annee = new Date().getFullYear();
+---
+<footer class="pied">
+  <div class="conteneur pied__grille">
+    <div>
+      <p class="pied__nom">{config.commerce.nom}</p>
+      <p>{adresseComplete()}</p>
+    </div>
+    <div>
+      <p><a href={`tel:${telLien(config.commerce.telephone)}`}>{config.commerce.telephone}</a></p>
+      {config.commerce.email && <p><a href={`mailto:${config.commerce.email}`}>{config.commerce.email}</a></p>}
+    </div>
+    <div class="pied__liens">
+      {r.instagram && <a href={r.instagram} target="_blank" rel="noopener">Instagram</a>}
+      {r.facebook && <a href={r.facebook} target="_blank" rel="noopener">Facebook</a>}
+      {r.tiktok && <a href={r.tiktok} target="_blank" rel="noopener">TikTok</a>}
+      <a href={url('mentions-legales')}>Mentions légales</a>
+    </div>
+  </div>
+  <p class="conteneur pied__copy">© {annee} {config.commerce.nom} · Site sans cookies</p>
+</footer>
+
+<style>
+  .pied { background: var(--principale); color: #fff; padding: 48px 0 24px; }
+  .pied a { color: #fff; }
+  .pied__grille { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .pied__nom { font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif; font-size: 1.4rem; }
+  .pied__liens { display: flex; flex-direction: column; gap: .4em; }
+  .pied__copy { margin-top: 32px; font-size: .85rem; opacity: .75; }
+</style>

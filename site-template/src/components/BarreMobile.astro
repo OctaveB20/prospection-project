@@ -1,0 +1,7 @@
+---
+import { config, telLien, lienItineraire } from '../lib/config';
+---
+<div class="barre-mobile">
+  <a class="bouton" href={`tel:${telLien(config.commerce.telephone)}`}>Appeler</a>
+  <a class="bouton bouton--secondaire" href={lienItineraire()} target="_blank" rel="noopener">Itinéraire</a>
+</div>

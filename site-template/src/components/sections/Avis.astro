@@ -1,0 +1,54 @@
+---
+import { config, lienAvisGoogle } from '../../lib/config';
+const s = config.sections.avis!;
+const lien = lienAvisGoogle();
+const etoiles = (n: number) => '★'.repeat(Math.round(n)) + '☆'.repeat(5 - Math.round(n));
+---
+<section id="avis" class="section section--claire">
+  <div class="conteneur">
+    <h2>{s.titre}</h2>
+    <p class="avis__resume">
+      <span class="avis__note">{s.note.toLocaleString('fr-FR')}</span>
+      <span>
+        <span class="etoiles" aria-hidden="true">{etoiles(s.note)}</span><br />
+        {s.nombre} avis sur Google
+      </span>
+    </p>
+    <div class="grille grille--3">
+      {s.liste.map((a) => (
+        <blockquote class="carte">
+          <p class="etoiles" aria-label={`${a.note} sur 5`}>{etoiles(a.note)}</p>
+          <p>« {a.texte} »</p>
+          <footer>
+            {a.auteur}
+            {a.exemple && <span class="avis__exemple">Avis d'exemple</span>}
+          </footer>
+        </blockquote>
+      ))}
+    </div>
+    {lien && (
+      <p class="avis__lien"><a class="bouton bouton--secondaire" href={lien} target="_blank" rel="noopener">Voir tous les avis</a></p>
+    )}
+  </div>
+</section>
+
+<style>
+  .avis__resume { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
+  .avis__note {
+    font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+    font-size: 3.5rem;
+    line-height: 1;
+    color: var(--principale);
+  }
+  blockquote { margin: 0; display: flex; flex-direction: column; }
+  blockquote footer { margin-top: auto; font-weight: 600; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .avis__exemple {
+    font-weight: 400;
+    font-size: .75rem;
+    padding: .1em .6em;
+    border-radius: 999px;
+    background: var(--clair);
+    color: color-mix(in srgb, var(--texte) 70%, transparent);
+  }
+  .avis__lien { margin-top: 28px; }
+</style>

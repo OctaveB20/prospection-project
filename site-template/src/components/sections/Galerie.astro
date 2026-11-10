@@ -1,0 +1,33 @@
+---
+import { config, url } from '../../lib/config';
+const s = config.sections.galerie!;
+---
+<section id="galerie" class="section">
+  <div class="conteneur">
+    <h2>{s.titre}</h2>
+    {s.intro && <p class="section__intro">{s.intro}</p>}
+    <ul class="galerie">
+      {s.images.map((img) => (
+        <li>
+          <figure>
+            <div class="visuel"><img src={url(img.src)} alt={img.alt} width="800" height="600" loading="lazy" /></div>
+            {img.legende && <figcaption>{img.legende}</figcaption>}
+          </figure>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .galerie {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  }
+  figure { margin: 0; }
+  figcaption { margin-top: 8px; font-size: .9rem; color: color-mix(in srgb, var(--texte) 70%, transparent); }
+</style>

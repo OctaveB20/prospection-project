@@ -1,0 +1,28 @@
+---
+import { config, url } from '../../lib/config';
+const s = config.sections.produits!;
+---
+<section id="produits" class="section">
+  <div class="conteneur">
+    <h2>{s.titre}</h2>
+    {s.intro && <p class="section__intro">{s.intro}</p>}
+    <div class="grille grille--4">
+      {s.items.map((item) => (
+        <article class="produit">
+          {item.image && (
+            <div class="visuel">
+              <img src={url(item.image.src)} alt={item.image.alt} width="800" height="600" loading="lazy" />
+            </div>
+          )}
+          <h3>{item.titre}</h3>
+          <p>{item.texte}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .produit h3 { margin-top: 16px; margin-bottom: .3em; }
+  .produit p { margin: 0; }
+</style>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Tulipes">
+<defs><path id="t" d="M-30 -10C-34 -50-20-70-14-62L0-78 14-62C20-70 34-50 30-10 26 18-26 18-30-10Z"/></defs>
+<rect width="800" height="600" fill="#eef1e8"/>
+<rect y="470" width="800" height="130" fill="#e3e8da"/>
+<g stroke="#6f8a5f" stroke-width="7" stroke-linecap="round" fill="none">
+<path d="M220 520C225 420 210 330 200 260M330 520C330 400 335 300 330 220M440 520C445 410 455 320 470 240M560 520C560 420 575 330 590 280"/>
+</g>
+<g fill="#86a273"><path d="M220 520c-60-40-70-120-50-160 20 50 40 100 50 160Z"/><path d="M440 520c50-50 70-130 50-170-20 50-40 110-50 170Z"/><path d="M560 520c-40-30-50-90-40-130 20 40 35 80 40 130Z"/></g>
+<use href="#t" fill="#d9665b" transform="translate(200 260)"/>
+<use href="#t" fill="#f2c96b" transform="translate(330 220)"/>
+<use href="#t" fill="#c45c86" transform="translate(470 240)"/>
+<use href="#t" fill="#f4a59a" transform="translate(590 280)"/>
+<rect x="160" y="500" width="480" height="70" rx="10" fill="#c9a882"/>
+<rect x="160" y="500" width="480" height="14" rx="7" fill="#b8956d"/>
+</svg>

@@ -1,0 +1,109 @@
+/* Couleurs injectées depuis config.theme via des variables CSS sur <html>. */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--texte);
+  background: var(--fond);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--principale);
+  margin: 0 0 .5em;
+}
+h1 { font-size: clamp(2.3rem, 6vw, 3.8rem); letter-spacing: -.01em; }
+h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); }
+h3 { font-size: 1.3rem; }
+p { margin: 0 0 1em; }
+a { color: var(--principale); }
+img { max-width: 100%; display: block; }
+
+.conteneur { width: min(1120px, 100% - 32px); margin-inline: auto; }
+
+.section { padding: clamp(56px, 9vw, 104px) 0; }
+.section--claire { background: var(--clair); }
+.section__intro { max-width: 60ch; margin-bottom: 2rem; color: color-mix(in srgb, var(--texte) 80%, transparent); }
+.surtitre {
+  display: inline-block;
+  font-size: .8rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: .5rem;
+}
+
+.bouton {
+  display: inline-flex;
+  align-items: center;
+  gap: .5em;
+  padding: .85em 1.4em;
+  border-radius: 999px;
+  border: 2px solid var(--principale);
+  background: var(--principale);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform .15s ease, background .15s ease;
+}
+.bouton:hover { transform: translateY(-1px); background: color-mix(in srgb, var(--principale) 85%, #000); }
+.bouton--secondaire { background: transparent; color: var(--principale); }
+.bouton--secondaire:hover { background: color-mix(in srgb, var(--principale) 8%, transparent); }
+.bouton:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.grille { display: grid; gap: 24px; }
+.grille--2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
+.grille--3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
+.grille--4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); }
+
+.carte {
+  background: #fff;
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.05);
+}
+
+.visuel { border-radius: 18px; overflow: hidden; background: var(--clair); aspect-ratio: 4 / 3; }
+.visuel img { width: 100%; height: 100%; object-fit: cover; }
+
+.etoiles { color: #d9a43b; letter-spacing: .1em; }
+
+/* Barre d'action mobile (Appeler / Itinéraire) */
+.barre-mobile { display: none; }
+@media (max-width: 720px) {
+  body { padding-bottom: 72px; }
+  .barre-mobile {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    position: fixed;
+    inset: auto 0 0 0;
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+    background: color-mix(in srgb, var(--fond) 92%, transparent);
+    backdrop-filter: blur(8px);
+    border-top: 1px solid color-mix(in srgb, var(--principale) 15%, transparent);
+    z-index: 50;
+  }
+  .barre-mobile .bouton { justify-content: center; padding: .75em 1em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .bouton { transition: none; }
+}
