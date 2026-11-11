@@ -6,15 +6,17 @@ Circuit : Scanner (Google Places + PageSpeed) → Score → CRM → Génération
 
 Documents de référence, à lire avant de proposer une étape :
 - `docs/roadmap-projet.md` : phases 0 à 6. Indique toujours dans quelle phase on se situe.
-- `docs/offre-et-prix.md` : formules Basique / Plus / Premium, modes de paiement, cibles par métier, fiscalité. Ces décisions sont prises : ne propose pas d'autre grille sauf demande explicite, et signale toute idée qui les contredit.
+- `docs/offre-et-prix.md` : formules Base (350 €) / Plus (450 €) + maintenance 20 €/mois, SEO local inclus, paiement, coûts, cibles par métier, fiscalité. Ces décisions sont prises : ne propose pas d'autre grille sauf demande explicite, et signale toute idée qui les contredit.
 
 ## Stack (décidée — ne pas proposer d'alternatives sauf demande)
 - Back-office interne : Python + Streamlit + SQLite (scanner, scoring, CRM, génération)
 - Données : Google Places API (New) avec field masks stricts + PageSpeed Insights API
 - Sites clients et démos : Astro, UN seul template, un `config.json` par client
 - Déploiement : GitHub → Cloudflare Pages ou Netlify
-- SEO : Google Search Console + Google Business Profile
-- Analytics : Plausible ou Umami (sans cookies)
+- SEO : Google Search Console + Google Business Profile (SEO local inclus dans toutes les formules : argument de vente clé)
+- Analytics : Umami auto-hébergé (sans cookies) ; Plausible écarté, trop cher par client
+- Carte : OpenStreetMap intégrée (sans cookies) + lien itinéraire Google Maps ; pas d'iframe Google Maps
+- Formulaires : Web3Forms (offre gratuite)
 - Réservation : intégrer Planity, Zenchef, TheFork — ne jamais recoder
 
 ## Règles pour le code
@@ -37,8 +39,8 @@ Documents de référence, à lire avant de proposer une étape :
 - Adapter au métier (artisan, restaurant, boutique, coiffeur, café) — voir les cibles dans `docs/offre-et-prix.md`.
 - Comparer le prix à ce que le commerce paie déjà (Planity, TheFork…), jamais à une agence.
 - Toujours inclure le calcul « clients à gagner pour rembourser le site » :
-  `prix annuel ÷ (panier moyen × marge)`, avec les chiffres du commerce.
-  Exemple : formule Plus en annuel = 790 € la 1ère année ; restaurant avec panier moyen 25 € et marge 30 % → 790 ÷ (25 × 0,30) ≈ 106 couverts sur l'année, soit ~2 par semaine.
+  `prix 1ère année ÷ (panier moyen × marge)`, avec les chiffres du commerce (prix 1ère année = création + 12 × 20 €).
+  Exemple : formule Base = 350 + 240 = 590 € la 1ère année ; restaurant avec panier moyen 25 € et marge 30 % → 590 ÷ (25 × 0,30) ≈ 79 couverts sur l'année, soit 1 à 2 par semaine.
 - Ne jamais mentionner le chèque numérique Île-de-France (aide close).
 - Prospection email B2B conforme CNIL : message en lien avec l'activité du destinataire + lien de désabonnement dans chaque envoi.
 

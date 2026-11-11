@@ -17,7 +17,8 @@ Scanner (Google Places + PageSpeed) → Score → CRM → Génération démo Ast
 | Sites clients + démos | Astro (template unique) + `config.json` par client | Site vitrine statique, rapide, SEO |
 | Code / déploiement | GitHub → Cloudflare Pages ou Netlify | Déploiement auto à chaque push |
 | SEO / visibilité | Google Search Console + Google Business Profile | Indexation, lien fiche Google |
-| Audience | Plausible ou Umami (sans cookies) | KPI clients, pas de bandeau cookies |
+| Audience | Umami auto-hébergé (sans cookies) | KPI clients, pas de bandeau cookies |
+| Carte / formulaires | OpenStreetMap + Web3Forms | Sans cookies, gratuit |
 | Réservation | Intégrations existantes (Planity, Zenchef, TheFork) | Pas de recodage |
 
 ---
@@ -43,24 +44,29 @@ Scanner (Google Places + PageSpeed) → Score → CRM → Génération démo Ast
 - [ ] Vue « à relancer aujourd'hui »
 
 ## Phase 3 — Template Astro + génération de démo
-- [ ] Template unique, sections activables : accueil, services/menu, horaires, carte, avis, contact, réservation
+- [x] Template unique, sections activables : accueil, services/menu, horaires, carte, avis, contact, réservation, devis (`site-template/`)
+- [x] Première démo : fleuriste fictif à Montmartre (`configs/fleuriste-atelier-petale.json`)
+- [ ] Module menu restaurant, version anglaise (formule Plus)
+- [ ] SEO technique : sitemap, robots, schema.org (fait), hreflang pour l'anglais
 - [ ] `config.json` par commerce rempli automatiquement depuis Places (nom, adresse, horaires, catégorie, 2-3 avis)
-- [ ] Visuels génériques par catégorie (pas de photos Google)
+- [ ] Visuels génériques par catégorie (pas de photos Google) — fleuriste fait, reste caviste, restaurant…
 - [ ] Démo publiée sur URL privée : `demo.<domaine>/<slug-commerce>`
-- [ ] 3 variantes visibles = les 3 formules (vitrine / + réservation / + avis & contenu)
+- [ ] 2 variantes visibles = les 2 formules (Base / Plus)
 
 ## Phase 4 — Argumentaire personnalisé
 - [ ] One-pager généré par commerce : sa note, son nb d'avis, concurrents à 500 m avec site, son score mobile éventuel
 - [ ] Bloc de stats générales **sourcées** (source citée pour chaque chiffre)
+- [ ] Mini-audit SEO local du commerce : position sur « métier + quartier », fiche Google complète ou non, nb d'avis vs concurrents
 - [ ] Export PDF + lien vers la démo
 
 ## Phase 5 — Offre, juridique, livraison
-- [ ] Offre : frais de création + abonnement mensuel (hébergement, domaine, petites modifs, fiche Google)
+- [x] Offre : Base 350 € / Plus 450 € + maintenance 20 €/mois, SEO local inclus (`docs/offre-et-prix.md`)
+- [ ] Plateforme de facturation électronique choisie (réception obligatoire depuis le 01/09/2026)
 - [ ] Statut pour facturer (micro-entreprise)
 - [ ] Contrat / CGV : propriété du site, durée, résiliation
 - [ ] Mentions légales sur chaque site client
 - [ ] Prospection email B2B : vérifier la doc CNIL (message lié à l'activité + désabonnement)
-- [ ] Mise en ligne : domaine client, Search Console, lien Business Profile, analytics sans cookies
+- [ ] Mise en ligne : domaine client, Search Console, Business Profile optimisée, Bing Places / Apple Business Connect / PagesJaunes, QR code avis, analytics sans cookies
 
 ## Phase 6 — Automatisation de bout en bout
 - [ ] Bouton « générer démo + one-pager » depuis le CRM
@@ -68,6 +74,16 @@ Scanner (Google Places + PageSpeed) → Score → CRM → Génération démo Ast
 - [ ] Signature → la config de la démo devient le site de production
 
 ---
+
+## Changements de direction
+| Date | Changement | Pourquoi |
+|---|---|---|
+| 11/11/2026 | Offre ramenée à 2 formules : Base 350 €, Plus 450 € (réservation, anglais, devis, carte) + maintenance 20 €/mois. Fin de Premium et des modes annuel / mensuel sans création | Offre plus simple à vendre en boutique |
+| 11/11/2026 | SEO local inclus dans toutes les formules et mis en avant | Argument de vente clé |
+| 11/11/2026 | Analytics : Umami auto-hébergé, Plausible écarté | Plausible ≈ 9 $/mois par site, trop cher face à 20 €/mois |
+| 11/11/2026 | Carte OpenStreetMap au lieu d'une intégration Google Maps | Pas de cookies, pas de bandeau |
+| 11/11/2026 | Facturation électronique à prévoir dès le 1er client | Réception obligatoire depuis le 01/09/2026 |
+| 10/11/2026 | Template Astro unique + 1ère démo fleuriste | Lancement de la phase 0 |
 
 ## Points de vigilance
 - L'API Places ne donne pas l'affluence en temps réel : fréquentation estimée via nb d'avis, note, récence des avis

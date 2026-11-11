@@ -1,4 +1,4 @@
-export type Formule = 'basique' | 'plus' | 'premium';
+export type Formule = 'base' | 'plus';
 
 export interface Image {
   src: string;

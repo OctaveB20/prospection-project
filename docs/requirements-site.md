@@ -22,19 +22,20 @@ Aucune clé API n'est nécessaire pour construire un site : toutes les données 
 ## 3. Sections disponibles
 | Clé | Contenu | Formules |
 |---|---|---|
-| `accueil` | Nom, accroche, boutons Appeler / Itinéraire, visuel | toutes |
-| `apropos` | Présentation du commerce, points forts | toutes |
-| `produits` | Produits / services détaillés | Plus, Premium |
-| `tarifs` | Module métier : grille de prix | module |
-| `galerie` | Visuels (15 max Basique, 30 max Plus) | toutes |
-| `avis` | Note Google, nb d'avis, 2-3 avis, lien vers la fiche | toutes |
-| `horaires` | Horaires de la semaine, jour courant surligné | toutes |
-| `devis` | Module métier : formulaire de demande de devis | module |
-| `reservation` | Module métier : bouton Planity / Zenchef / TheFork (intégration, pas de recodage) | module |
-| `acces` | Carte OpenStreetMap (sans cookies) + lien itinéraire | toutes |
-| `contact` | Téléphone, email, adresse, réseaux sociaux | toutes |
+| `accueil` | Nom, accroche, boutons Appeler / Itinéraire, visuel | Base, Plus |
+| `apropos` | Présentation du commerce, points forts | Base, Plus |
+| `produits` | Produits / services | Base, Plus |
+| `tarifs` | Menu, carte ou grille de prix | Base, Plus |
+| `galerie` | Photos du commerçant (visuels génériques en démo) | Base, Plus |
+| `avis` | Note Google, nb d'avis, 2-3 avis, lien vers la fiche | Base, Plus |
+| `horaires` | Horaires de la semaine, jour courant surligné | Base, Plus |
+| `contact` | Téléphone, email, adresse, réseaux sociaux | Base, Plus |
+| `reservation` | Bouton Planity / Zenchef / TheFork (intégration, pas de recodage) | **Plus** |
+| `devis` | Formulaire de demande de devis | **Plus** |
+| `acces` | Carte OpenStreetMap (sans cookies) + lien itinéraire | **Plus** |
+| *(à faire)* version anglaise | Pages en anglais + `hreflang` | **Plus** |
 
-Modules métier autorisés : 1 en Basique, 2 en Plus, tous en Premium. **Le build échoue si la config dépasse sa formule.**
+Offre : Base 350 €, Plus 450 €, maintenance 20 €/mois (`docs/offre-et-prix.md`). **Le build échoue si une config `base` active une section réservée à Plus.**
 
 ## 4. Règles de conformité (contrôlées au build quand c'est possible)
 - **Photos Google interdites** : le build refuse toute image venant d'un domaine Google (`googleusercontent`, `maps.googleapis`, `ggpht`…). On utilise les visuels génériques par métier (`public/visuels/<metier>/`) ou les photos fournies par le client.
@@ -45,13 +46,17 @@ Modules métier autorisés : 1 en Basique, 2 en Plus, tous en Premium. **Le buil
 - **Mentions légales** : page `/mentions-legales` générée depuis la config (éditeur, SIRET, hébergeur).
 - **Formulaires** : désactivés en démo (message explicatif), branchés sur `formulaire.action` en production.
 
-## 5. Qualité attendue
+## 5. SEO local (inclus dans toutes les formules)
+- Généré par le template : `<title>` et description « métier + quartier » (`seo` dans la config), données structurées schema.org, `sitemap.xml`, `robots.txt` (démo : `Disallow: /`).
+- À faire à la mise en ligne : Search Console (sitemap envoyé), fiche Google optimisée et liée au site, Bing Places, Apple Business Connect, PagesJaunes, QR code avis.
+
+## 6. Qualité attendue
 - PageSpeed mobile ≥ 90 (site statique, pas de framework JS côté client, images SVG/optimisées).
 - Lisible sur mobile dès 360 px, barre d'action fixe en bas (Appeler / Itinéraire).
 - Accessibilité de base : contrastes suffisants, textes alternatifs, libellés de formulaire, navigation clavier.
 - Données structurées schema.org (`Florist`, `Restaurant`, `HairSalon`… selon `metier`) pour le SEO local.
 
-## 6. Critères d'acceptation d'une démo
+## 7. Critères d'acceptation d'une démo
 - [ ] `npm run build` passe sans erreur avec la config du commerce
 - [ ] Nom, adresse, téléphone, horaires, note et nb d'avis conformes à la fiche du commerce
 - [ ] Aucune photo Google, bandeau démo présent, page non indexée
@@ -59,7 +64,7 @@ Modules métier autorisés : 1 en Basique, 2 en Plus, tous en Premium. **Le buil
 - [ ] Vérifiée sur mobile (bouton Appeler fonctionnel)
 - [ ] Publiée sur `demo.<domaine>/<slug>`
 
-## 7. Commandes
+## 8. Commandes
 ```bash
 cd site-template
 npm install
