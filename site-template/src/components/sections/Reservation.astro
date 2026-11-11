@@ -1,0 +1,17 @@
+---
+// Intégration d'un service existant (Planity, Zenchef, TheFork) : on ne recode jamais la réservation.
+import { config } from '../../lib/config';
+const s = config.sections.reservation!;
+---
+<section id="reservation" class="section section--claire">
+  <div class="conteneur reservation">
+    <h2>{s.titre}</h2>
+    {s.texte && <p class="section__intro">{s.texte}</p>}
+    <a class="bouton" href={s.url} target="_blank" rel="noopener">Réserver sur {s.fournisseur}</a>
+  </div>
+</section>
+
+<style>
+  .reservation { text-align: center; }
+  .reservation .section__intro { margin-inline: auto; }
+</style>

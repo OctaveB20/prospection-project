@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Plante en pot">
+<rect width="800" height="600" fill="#eaf0ea"/>
+<rect x="520" y="60" width="200" height="260" rx="8" fill="#dfe8df"/><path d="M620 60v260M520 190h200" stroke="#eaf0ea" stroke-width="10"/>
+<rect y="500" width="800" height="100" fill="#d9d0c3"/>
+<g stroke="#5f7d55" stroke-width="6" fill="none" stroke-linecap="round"><path d="M400 430C390 330 300 260 250 220M400 430C400 320 410 220 420 150M400 430C420 340 500 280 560 250M400 430C380 360 330 330 290 330"/></g>
+<g fill="#6f9a5f"><ellipse cx="240" cy="210" rx="70" ry="38" transform="rotate(30 240 210)"/><ellipse cx="425" cy="135" rx="40" ry="78" transform="rotate(8 425 135)"/><ellipse cx="575" cy="240" rx="75" ry="40" transform="rotate(-25 575 240)"/><ellipse cx="285" cy="330" rx="55" ry="28" transform="rotate(10 285 330)" fill="#86a273"/></g>
+<path d="M310 420h180l-24 120H334z" fill="#c9786b"/><rect x="300" y="405" width="200" height="30" rx="6" fill="#b5675c"/>
+</svg>

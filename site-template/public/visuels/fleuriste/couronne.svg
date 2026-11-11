@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Couronne de fleurs">
+<defs><ellipse id="l" rx="12" ry="30" fill="#7f9a6e"/>
+<g id="f"><g><ellipse cy="-16" rx="10" ry="16"/><ellipse cy="-16" rx="10" ry="16" transform="rotate(72)"/><ellipse cy="-16" rx="10" ry="16" transform="rotate(144)"/><ellipse cy="-16" rx="10" ry="16" transform="rotate(216)"/><ellipse cy="-16" rx="10" ry="16" transform="rotate(288)"/></g><circle r="7" fill="#f2c96b"/></g></defs>
+<rect width="800" height="600" fill="#f6efe6"/>
+<circle cx="400" cy="300" r="170" fill="none" stroke="#a7b896" stroke-width="10"/>
+<g transform="translate(400 300)">
+<g id="ring"><use href="#l" transform="rotate(0) translate(0 -170) rotate(60)"/><use href="#l" transform="rotate(20) translate(0 -170) rotate(60)"/><use href="#l" transform="rotate(40) translate(0 -170) rotate(60)" fill="#93ad80"/><use href="#l" transform="rotate(60) translate(0 -170) rotate(60)"/><use href="#l" transform="rotate(80) translate(0 -170) rotate(60)" fill="#93ad80"/><use href="#l" transform="rotate(100) translate(0 -170) rotate(60)"/><use href="#l" transform="rotate(120) translate(0 -170) rotate(60)" fill="#93ad80"/><use href="#l" transform="rotate(140) translate(0 -170) rotate(60)"/><use href="#l" transform="rotate(160) translate(0 -170) rotate(60)"/></g>
+<use href="#ring" transform="rotate(180)"/>
+<use href="#f" fill="#fbf6f2" transform="rotate(10) translate(0 -170)"/><use href="#f" fill="#e8a0a8" transform="rotate(55) translate(0 -170)"/><use href="#f" fill="#fbf6f2" transform="rotate(100) translate(0 -170)"/><use href="#f" fill="#c9786b" transform="rotate(145) translate(0 -170)"/><use href="#f" fill="#fbf6f2" transform="rotate(190) translate(0 -170)"/><use href="#f" fill="#e8a0a8" transform="rotate(235) translate(0 -170)"/><use href="#f" fill="#fbf6f2" transform="rotate(280) translate(0 -170)"/><use href="#f" fill="#c9786b" transform="rotate(325) translate(0 -170)"/>
+</g>
+<path d="M370 470c-20 40-40 70-60 90M430 470c20 40 40 70 60 90" stroke="#c9786b" stroke-width="8" fill="none" stroke-linecap="round"/>
+<circle cx="400" cy="470" r="14" fill="#c9786b"/>
+</svg>

@@ -1,0 +1,29 @@
+---
+import { config } from '../../lib/config';
+const s = config.sections.apropos!;
+---
+<section id="apropos" class="section section--claire">
+  <div class="conteneur grille grille--2">
+    <div>
+      <span class="surtitre">{config.commerce.adresse.quartier ?? config.commerce.adresse.ville}</span>
+      <h2>{s.titre}</h2>
+      {s.texte.map((p) => <p>{p}</p>)}
+    </div>
+    {s.pointsForts && (
+      <ul class="points">
+        {s.pointsForts.map((pf) => (
+          <li class="carte">
+            <h3>{pf.titre}</h3>
+            <p>{pf.texte}</p>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</section>
+
+<style>
+  .points { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+  .points h3 { margin-bottom: .25em; }
+  .points p { margin: 0; }
+</style>

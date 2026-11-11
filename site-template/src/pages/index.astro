@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+import Accueil from '../components/sections/Accueil.astro';
+import APropos from '../components/sections/APropos.astro';
+import Produits from '../components/sections/Produits.astro';
+import Tarifs from '../components/sections/Tarifs.astro';
+import Galerie from '../components/sections/Galerie.astro';
+import Avis from '../components/sections/Avis.astro';
+import Horaires from '../components/sections/Horaires.astro';
+import Devis from '../components/sections/Devis.astro';
+import Reservation from '../components/sections/Reservation.astro';
+import Acces from '../components/sections/Acces.astro';
+import Contact from '../components/sections/Contact.astro';
+import { sectionsActives } from '../lib/config';
+
+// Clé de section dans config.json -> composant. Nouvelle fonctionnalité = nouvelle entrée ici.
+const composants: Record<string, any> = {
+  accueil: Accueil,
+  apropos: APropos,
+  produits: Produits,
+  tarifs: Tarifs,
+  galerie: Galerie,
+  avis: Avis,
+  horaires: Horaires,
+  devis: Devis,
+  reservation: Reservation,
+  acces: Acces,
+  contact: Contact,
+};
+
+const inconnues = sectionsActives().filter((cle) => !composants[cle]);
+if (inconnues.length) {
+  throw new Error(`[config] Section(s) sans composant : ${inconnues.join(', ')}`);
+}
+---
+<Base>
+  {sectionsActives().map((cle) => {
+    const Composant = composants[cle];
+    return <Composant />;
+  })}
+</Base>

@@ -1,0 +1,71 @@
+---
+import { config, estDemo } from '../../lib/config';
+const s = config.sections.devis!;
+const action = s.formulaire?.action ?? null;
+// Le formulaire n'envoie rien en démo ou tant qu'aucune action n'est configurée.
+const inactif = estDemo || !action;
+const merci = s.merci ?? 'Merci, nous revenons vers vous rapidement.';
+---
+<section id="devis" class="section section--claire">
+  <div class="conteneur grille grille--2">
+    <div>
+      <h2>{s.titre}</h2>
+      {s.intro && <p class="section__intro">{s.intro}</p>}
+      <p>Vous préférez en parler ? Appelez-nous au <strong>{config.commerce.telephone}</strong>.</p>
+    </div>
+    <form
+      class="carte formulaire"
+      method="post"
+      action={inactif ? undefined : action}
+      data-inactif={inactif ? 'true' : 'false'}
+      data-merci={merci}
+    >
+      <label>
+        Type de demande
+        <select name="type" required>
+          {s.types.map((t) => <option>{t}</option>)}
+        </select>
+      </label>
+      <div class="formulaire__ligne">
+        <label>Date souhaitée <input type="date" name="date" /></label>
+        <label>Budget indicatif <input type="text" name="budget" placeholder="ex. 300 €" /></label>
+      </div>
+      <label>Votre projet <textarea name="message" rows="4" required placeholder="Couleurs, style, nombre de personnes, lieu…"></textarea></label>
+      <div class="formulaire__ligne">
+        <label>Nom <input type="text" name="nom" autocomplete="name" required /></label>
+        <label>Email ou téléphone <input type="text" name="contact" autocomplete="email" required /></label>
+      </div>
+      <button class="bouton" type="submit">Envoyer ma demande</button>
+      <p class="formulaire__message" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    var f = document.querySelector('#devis form[data-inactif="true"]');
+    if (!f) return;
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      f.querySelector('.formulaire__message').textContent =
+        'Formulaire de démonstration : aucune donnée n’a été envoyée. Sur votre site, la demande vous arrivera directement par email.';
+    });
+  })();
+</script>
+
+<style>
+  .formulaire { display: grid; gap: 16px; }
+  .formulaire__ligne { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+  label { display: grid; gap: 6px; font-weight: 600; font-size: .95rem; }
+  input, select, textarea {
+    font: inherit;
+    font-weight: 400;
+    padding: .7em .8em;
+    border-radius: 10px;
+    border: 1px solid color-mix(in srgb, var(--texte) 20%, transparent);
+    background: var(--fond);
+    color: var(--texte);
+  }
+  .bouton { justify-self: start; }
+  .formulaire__message { margin: 0; font-size: .9rem; color: var(--principale); }
+</style>

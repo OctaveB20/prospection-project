@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Pivoines">
+<defs><g id="p"><circle r="80"/><circle r="62" fill="#fff" opacity=".18"/><circle r="44" fill="#000" opacity=".06"/><circle r="28" fill="#fff" opacity=".22"/><circle r="14" fill="#000" opacity=".08"/></g>
+<ellipse id="l" rx="22" ry="60" fill="#7f9a6e"/></defs>
+<rect width="800" height="600" fill="#f7e9ea"/>
+<use href="#l" transform="translate(250 380) rotate(-60)"/><use href="#l" transform="translate(560 390) rotate(60)"/><use href="#l" transform="translate(400 470) rotate(10)" fill="#93ad80"/><use href="#l" transform="translate(330 470) rotate(-25)" fill="#6f8a5f"/>
+<use href="#p" fill="#e8a0a8" transform="translate(300 300)"/>
+<use href="#p" fill="#f3c6c8" transform="translate(480 280) scale(.9)"/>
+<use href="#p" fill="#c45c86" transform="translate(400 400) scale(.75)"/>
+<use href="#p" fill="#fbf0ee" transform="translate(590 410) scale(.55)"/>
+</svg>

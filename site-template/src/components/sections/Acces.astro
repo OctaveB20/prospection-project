@@ -1,0 +1,35 @@
+---
+// Carte OpenStreetMap : pas de cookies, pas de clé API (contrairement à l'intégration Google Maps).
+import { config, adresseComplete, lienItineraire } from '../../lib/config';
+const s = config.sections.acces!;
+const g = config.commerce.geo;
+const d = 0.004;
+const carte = g
+  ? `https://www.openstreetmap.org/export/embed.html?bbox=${g.lng - d * 1.5},${g.lat - d},${g.lng + d * 1.5},${g.lat + d}&layer=mapnik&marker=${g.lat},${g.lng}`
+  : null;
+---
+<section id="acces" class="section">
+  <div class="conteneur grille grille--2">
+    <div>
+      <h2>{s.titre}</h2>
+      <p><strong>{adresseComplete()}</strong></p>
+      {s.indications && (
+        <ul class="indications">
+          {s.indications.map((i) => <li>{i}</li>)}
+        </ul>
+      )}
+      <a class="bouton" href={lienItineraire()} target="_blank" rel="noopener">Calculer mon itinéraire</a>
+    </div>
+    {carte && (
+      <div class="carte-osm">
+        <iframe src={carte} title={`Plan d'accès : ${config.commerce.nom}`} loading="lazy"></iframe>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .indications { padding-left: 1.1em; margin: 0 0 24px; }
+  .carte-osm { border-radius: 18px; overflow: hidden; min-height: 320px; background: var(--clair); }
+  iframe { border: 0; width: 100%; height: 100%; min-height: 320px; display: block; }
+</style>

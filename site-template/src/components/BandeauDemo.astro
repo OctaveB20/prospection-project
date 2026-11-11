@@ -1,0 +1,28 @@
+---
+import { config } from '../lib/config';
+const message = config.demo?.message ?? `Démo réalisée pour ${config.commerce.nom}.`;
+---
+<div class="bandeau-demo" role="note">
+  <div class="conteneur">
+    <strong>Démo</strong>
+    <span>{message}</span>
+  </div>
+</div>
+
+<style>
+  .bandeau-demo {
+    background: var(--texte);
+    color: #fff;
+    font-size: .9rem;
+    padding: 8px 0;
+  }
+  .bandeau-demo .conteneur { display: flex; gap: .75em; align-items: center; flex-wrap: wrap; }
+  strong {
+    background: var(--accent);
+    padding: .1em .6em;
+    border-radius: 999px;
+    font-size: .75rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+</style>

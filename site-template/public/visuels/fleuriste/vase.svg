@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Branchages en vase">
+<defs><ellipse id="e" rx="13" ry="13" fill="#9fb4a3"/></defs>
+<rect width="800" height="600" fill="#efece6"/>
+<rect y="490" width="800" height="110" fill="#ddd5c8"/>
+<g stroke="#7d6a58" stroke-width="5" fill="none" stroke-linecap="round"><path d="M400 380C380 280 320 200 280 110M400 380C410 270 440 180 470 90M400 380C430 300 510 240 560 200"/></g>
+<g><use href="#e" x="300" y="150"/><use href="#e" x="272" y="122"/><use href="#e" x="330" y="200"/><use href="#e" x="350" y="250"/><use href="#e" x="455" y="140"/><use href="#e" x="470" y="95"/><use href="#e" x="440" y="200"/><use href="#e" x="520" y="225"/><use href="#e" x="555" y="200"/><use href="#e" x="485" y="255"/><use href="#e" x="315" y="175" fill="#b5c6b6"/><use href="#e" x="460" y="170" fill="#b5c6b6"/></g>
+<path d="M350 370h100c10 40 30 70 30 110 0 25-25 40-80 40s-80-15-80-40c0-40 20-70 30-110Z" fill="#7a3b4f"/>
+<ellipse cx="400" cy="370" rx="50" ry="10" fill="#5e2c3c"/>
+</svg>

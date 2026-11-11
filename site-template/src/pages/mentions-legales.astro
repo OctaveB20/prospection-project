@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+import { config, adresseComplete } from '../lib/config';
+const m = config.mentionsLegales;
+const c = config.commerce;
+---
+<Base titre={`Mentions légales — ${c.nom}`} description={`Mentions légales du site de ${c.nom}.`}>
+  <section class="section">
+    <div class="conteneur ml">
+      <h1>Mentions légales</h1>
+
+      <h2>Éditeur du site</h2>
+      <p>
+        {m.editeur} ({c.nom})<br />
+        {m.statut}<br />
+        SIRET : {m.siret}<br />
+        {adresseComplete()}<br />
+        Téléphone : {c.telephone}
+        {c.email && <><br />Email : {c.email}</>}
+      </p>
+      <p>Responsable de la publication : {m.responsable}</p>
+
+      <h2>Hébergement</h2>
+      <p>
+        {m.hebergeur.nom}<br />
+        {m.hebergeur.adresse}<br />
+        <a href={m.hebergeur.site}>{m.hebergeur.site}</a>
+      </p>
+
+      <h2>Données personnelles</h2>
+      <p>
+        Les informations envoyées via les formulaires servent uniquement à répondre à votre demande et ne sont
+        ni revendues ni utilisées à d'autres fins. Vous pouvez demander leur consultation, rectification ou
+        suppression en écrivant à {c.email ?? 'l\'adresse de l\'éditeur'}.
+      </p>
+
+      <h2>Cookies</h2>
+      <p>
+        Ce site ne dépose aucun cookie. La mesure d'audience, si elle est activée, est réalisée sans cookie et
+        sans donnée personnelle identifiante.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .ml { max-width: 760px; }
+  .ml h2 { font-size: 1.4rem; margin-top: 1.6em; }
+</style>

@@ -1,0 +1,48 @@
+---
+import { config, url, telLien, sectionsActives } from '../lib/config';
+
+// Liens du menu : sections actives qui ont un libellé "menu"
+const liens = sectionsActives()
+  .map((cle) => ({ cle, menu: (config.sections[cle] as { menu?: string }).menu }))
+  .filter((l) => l.menu);
+---
+<header class="en-tete">
+  <div class="conteneur en-tete__ligne">
+    <a class="logo" href={url('/')}>{config.commerce.nom}</a>
+    <nav aria-label="Menu principal">
+      <ul>
+        {liens.map((l) => <li><a href={url(`/#${l.cle}`)}>{l.menu}</a></li>)}
+      </ul>
+    </nav>
+    <a class="bouton en-tete__tel" href={`tel:${telLien(config.commerce.telephone)}`}>
+      {config.commerce.telephone}
+    </a>
+  </div>
+</header>
+
+<style>
+  .en-tete {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: color-mix(in srgb, var(--fond) 92%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid color-mix(in srgb, var(--principale) 10%, transparent);
+  }
+  .en-tete__ligne { display: flex; align-items: center; gap: 24px; min-height: 68px; }
+  .logo {
+    font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+    font-size: 1.45rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--principale);
+    white-space: nowrap;
+  }
+  nav { margin-left: auto; }
+  ul { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; }
+  nav a { text-decoration: none; color: var(--texte); font-size: .95rem; }
+  nav a:hover { color: var(--principale); }
+  .en-tete__tel { padding: .55em 1.1em; font-size: .95rem; white-space: nowrap; }
+  @media (max-width: 1000px) { nav { display: none; } .en-tete__tel { margin-left: auto; } }
+  @media (max-width: 720px) { .en-tete__tel { display: none; } }
+</style>

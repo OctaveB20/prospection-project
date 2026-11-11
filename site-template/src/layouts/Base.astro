@@ -1,0 +1,95 @@
+---
+import '../styles/global.css';
+import BandeauDemo from '../components/BandeauDemo.astro';
+import EnTete from '../components/EnTete.astro';
+import PiedDePage from '../components/PiedDePage.astro';
+import BarreMobile from '../components/BarreMobile.astro';
+import { config, estDemo, url, telLien } from '../lib/config';
+
+interface Props {
+  titre?: string;
+  description?: string;
+}
+
+const { titre, description } = Astro.props;
+const c = config;
+const t = c.theme;
+const titrePage = titre ?? c.seo.titre;
+const descriptionPage = description ?? c.seo.description;
+const styleTheme = `--principale:${t.principale};--accent:${t.accent};--fond:${t.fond};--texte:${t.texte};--clair:${t.clair};`;
+
+// Données structurées schema.org pour le SEO local
+const horaires = c.sections.horaires?.actif ? c.sections.horaires.semaine : [];
+const joursSchema: Record<string, string> = {
+  Lundi: 'Monday', Mardi: 'Tuesday', Mercredi: 'Wednesday', Jeudi: 'Thursday',
+  Vendredi: 'Friday', Samedi: 'Saturday', Dimanche: 'Sunday',
+};
+const versHeure = (h: string) => h.trim().replace('h', ':').padStart(5, '0');
+const openingHours = horaires.flatMap((j) =>
+  j.plages.map((p) => {
+    const [debut, fin] = p.split(/[–-]/);
+    return {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: joursSchema[j.jour] ?? j.jour,
+      opens: versHeure(debut),
+      closes: versHeure(fin),
+    };
+  }),
+);
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': c.seo.typeSchema ?? 'LocalBusiness',
+  name: c.commerce.nom,
+  description: descriptionPage,
+  telephone: telLien(c.commerce.telephone),
+  email: c.commerce.email,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: c.commerce.adresse.rue,
+    postalCode: c.commerce.adresse.codePostal,
+    addressLocality: c.commerce.adresse.ville,
+    addressCountry: 'FR',
+  },
+  ...(c.commerce.geo && {
+    geo: { '@type': 'GeoCoordinates', latitude: c.commerce.geo.lat, longitude: c.commerce.geo.lng },
+  }),
+  ...(openingHours.length && { openingHoursSpecification: openingHours }),
+  ...(!estDemo && c.sections.avis?.actif && {
+    aggregateRating: { '@type': 'AggregateRating', ratingValue: c.sections.avis.note, reviewCount: c.sections.avis.nombre },
+  }),
+};
+
+const a = c.analytics;
+---
+<!doctype html>
+<html lang="fr" style={styleTheme}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{titrePage}</title>
+    <meta name="description" content={descriptionPage} />
+    {estDemo && <meta name="robots" content="noindex, nofollow" />}
+    <meta name="theme-color" content={t.principale} />
+    <link rel="icon" href={url('favicon.svg')} type="image/svg+xml" />
+    <meta property="og:title" content={titrePage} />
+    <meta property="og:description" content={descriptionPage} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    {!estDemo && a?.plausibleDomaine && (
+      <script defer data-domain={a.plausibleDomaine} src="https://plausible.io/js/script.js"></script>
+    )}
+    {!estDemo && a?.umamiId && a?.umamiSrc && (
+      <script defer src={a.umamiSrc} data-website-id={a.umamiId}></script>
+    )}
+  </head>
+  <body>
+    {estDemo && <BandeauDemo />}
+    <EnTete />
+    <main id="contenu">
+      <slot />
+    </main>
+    <PiedDePage />
+    <BarreMobile />
+  </body>
+</html>

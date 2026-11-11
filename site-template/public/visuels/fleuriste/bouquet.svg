@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Bouquet de fleurs">
+<defs>
+<g id="fl"><g><ellipse cy="-24" rx="15" ry="24"/><ellipse cy="-24" rx="15" ry="24" transform="rotate(72)"/><ellipse cy="-24" rx="15" ry="24" transform="rotate(144)"/><ellipse cy="-24" rx="15" ry="24" transform="rotate(216)"/><ellipse cy="-24" rx="15" ry="24" transform="rotate(288)"/></g><circle r="10" fill="#f2c96b"/></g>
+<g id="rose"><circle r="34"/><circle r="24" fill="#000" opacity=".08"/><path d="M-14 0a14 14 0 1 1 14 14" fill="none" stroke="#000" stroke-opacity=".18" stroke-width="5"/></g>
+<ellipse id="lf" rx="14" ry="38" fill="#7f9a6e"/>
+</defs>
+<rect width="800" height="600" fill="#f4e7e0"/>
+<circle cx="640" cy="120" r="180" fill="#efd9cf"/>
+<circle cx="130" cy="520" r="150" fill="#ecdcd3"/>
+<g stroke="#6f8a5f" stroke-width="6" stroke-linecap="round">
+<path d="M400 560 360 300M400 560 300 270M400 560 450 280M400 560 520 300M400 560 400 250M400 560 250 330M400 560 560 350"/>
+</g>
+<use href="#lf" transform="translate(300 330) rotate(-50)"/><use href="#lf" transform="translate(510 340) rotate(50)"/><use href="#lf" transform="translate(250 380) rotate(-70)"/><use href="#lf" transform="translate(560 390) rotate(70)"/><use href="#lf" transform="translate(430 230) rotate(20)" fill="#93ad80"/>
+<use href="#rose" fill="#c9786b" transform="translate(360 290)"/>
+<use href="#rose" fill="#e6a6a1" transform="translate(455 270) scale(.9)"/>
+<use href="#rose" fill="#7a3b4f" transform="translate(520 320) scale(.8)"/>
+<use href="#fl" fill="#fbf6f2" transform="translate(300 265)"/>
+<use href="#fl" fill="#f0c2b5" transform="translate(405 215) scale(.9)"/>
+<use href="#fl" fill="#fbf6f2" transform="translate(255 335) scale(.7)"/>
+<use href="#fl" fill="#e9b0b6" transform="translate(565 360) scale(.75)"/>
+<path d="M300 400 400 590 500 400 455 430 400 410 345 430Z" fill="#e8d2b4"/>
+<path d="M300 400 400 590 345 430Z" fill="#dcc29f"/>
+<path d="M368 470h64l-8 26h-48z" fill="#7a3b4f"/>
+</svg>

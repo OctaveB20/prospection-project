@@ -1,0 +1,43 @@
+---
+import { config, telLien, adresseComplete } from '../../lib/config';
+const s = config.sections.contact!;
+const c = config.commerce;
+const r = c.reseaux ?? {};
+const reseaux = [
+  ['Instagram', r.instagram],
+  ['Facebook', r.facebook],
+  ['TikTok', r.tiktok],
+].filter(([, lien]) => lien) as [string, string][];
+---
+<section id="contact" class="section section--claire">
+  <div class="conteneur">
+    <h2>{s.titre}</h2>
+    <div class="grille grille--3">
+      <div class="carte">
+        <h3>Téléphone</h3>
+        <p><a href={`tel:${telLien(c.telephone)}`}>{c.telephone}</a></p>
+      </div>
+      {c.email && (
+        <div class="carte">
+          <h3>Email</h3>
+          <p><a href={`mailto:${c.email}`}>{c.email}</a></p>
+        </div>
+      )}
+      <div class="carte">
+        <h3>Adresse</h3>
+        <p>{adresseComplete()}</p>
+      </div>
+      {reseaux.length > 0 && (
+        <div class="carte">
+          <h3>Réseaux</h3>
+          <p>{reseaux.map(([nom, lien], i) => <>{i > 0 && ' · '}<a href={lien} target="_blank" rel="noopener">{nom}</a></>)}</p>
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .carte h3 { font-size: 1.05rem; margin-bottom: .3em; }
+  .carte p { margin: 0; overflow-wrap: anywhere; }
+</style>

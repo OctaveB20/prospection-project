@@ -1,0 +1,180 @@
+{
+  "slug": "atelier-petale",
+  "metier": "fleuriste",
+  "formule": "plus",
+  "demo": {
+    "actif": true,
+    "urlBase": "https://demo.example.com",
+    "message": "Démo réalisée pour Atelier Pétale — voici à quoi pourrait ressembler votre site."
+  },
+  "site": {
+    "url": "https://www.atelier-petale.example"
+  },
+  "commerce": {
+    "nom": "Atelier Pétale",
+    "slogan": "Fleuriste de quartier à Montmartre",
+    "adresse": {
+      "rue": "Rue Lepic",
+      "codePostal": "75018",
+      "ville": "Paris",
+      "quartier": "Montmartre"
+    },
+    "geo": { "lat": 48.8854, "lng": 2.3338 },
+    "telephone": "01 99 00 12 34",
+    "email": "bonjour@atelier-petale.example",
+    "placeId": null,
+    "reseaux": {
+      "instagram": "https://www.instagram.com/",
+      "facebook": null,
+      "tiktok": null
+    }
+  },
+  "theme": {
+    "principale": "#7a3b4f",
+    "accent": "#c9786b",
+    "fond": "#fbf6f2",
+    "texte": "#2b2224",
+    "clair": "#f1e4dd"
+  },
+  "seo": {
+    "titre": "Atelier Pétale — Fleuriste à Montmartre, Paris 18e",
+    "description": "Bouquets de saison, plantes et fleurs pour mariages et événements à Montmartre (Paris 18e). Bouquet du jour dès 35 €, devis gratuit sous 48 h.",
+    "typeSchema": "Florist"
+  },
+  "analytics": {
+    "plausibleDomaine": null,
+    "umamiId": null,
+    "umamiSrc": null
+  },
+  "ordre": ["accueil", "apropos", "produits", "tarifs", "galerie", "avis", "horaires", "devis", "reservation", "acces", "contact"],
+  "sections": {
+    "accueil": {
+      "actif": true,
+      "accroche": "Des bouquets de saison composés chaque matin, à deux pas de la place des Abbesses.",
+      "boutonPrincipal": "Demander un devis",
+      "image": { "src": "visuels/fleuriste/bouquet.svg", "alt": "Illustration d'un bouquet de fleurs de saison" }
+    },
+    "apropos": {
+      "actif": true,
+      "menu": "L'atelier",
+      "titre": "L'atelier",
+      "texte": [
+        "Atelier Pétale compose des bouquets avec des fleurs de saison, achetées chaque semaine au marché de Rungis et auprès de producteurs d'Île-de-France quand la saison le permet.",
+        "Que ce soit pour offrir, décorer votre table ou fleurir un grand jour, nous prenons le temps de comprendre ce que vous voulez dire avec vos fleurs."
+      ],
+      "pointsForts": [
+        { "titre": "Fleurs de saison", "texte": "Arrivages deux fois par semaine, pas de fleurs fatiguées." },
+        { "titre": "Livraison Paris 18e et 9e", "texte": "Livraison le jour même pour toute commande avant 14 h." },
+        { "titre": "Sur mesure", "texte": "Couleurs, budget, style : chaque composition est unique." }
+      ]
+    },
+    "produits": {
+      "actif": true,
+      "menu": "Créations",
+      "titre": "Nos créations",
+      "items": [
+        { "titre": "Bouquets du jour", "texte": "Composés le matin selon les arrivages, prêts à offrir.", "image": { "src": "visuels/fleuriste/pivoines.svg", "alt": "Illustration de pivoines" } },
+        { "titre": "Plantes d'intérieur", "texte": "Plantes vertes et fleuries, avec conseils d'entretien.", "image": { "src": "visuels/fleuriste/plantes.svg", "alt": "Illustration d'une plante en pot" } },
+        { "titre": "Mariages & événements", "texte": "Bouquet de mariée, boutonnières, centres de table, arches.", "image": { "src": "visuels/fleuriste/couronne.svg", "alt": "Illustration d'une couronne de fleurs" } },
+        { "titre": "Abonnements pros", "texte": "Fleurs renouvelées chaque semaine pour restaurants, hôtels et bureaux.", "image": { "src": "visuels/fleuriste/vase.svg", "alt": "Illustration d'un vase avec des branchages" } }
+      ]
+    },
+    "tarifs": {
+      "actif": true,
+      "menu": "Tarifs",
+      "titre": "Tarifs indicatifs",
+      "lignes": [
+        { "libelle": "Bouquet du jour", "prix": "dès 35 €", "detail": "taille S, M ou L" },
+        { "libelle": "Bouquet signature", "prix": "dès 60 €", "detail": "fleurs de saison premium" },
+        { "libelle": "Composition de deuil", "prix": "dès 90 €", "detail": "livrée au lieu de cérémonie" },
+        { "libelle": "Bouquet de mariée", "prix": "dès 150 €", "detail": "rendez-vous conseil offert" },
+        { "libelle": "Abonnement hebdomadaire", "prix": "dès 45 €/sem.", "detail": "pour les professionnels" },
+        { "libelle": "Livraison Paris 18e / 9e", "prix": "8 €", "detail": "offerte dès 80 € d'achat" }
+      ],
+      "note": "Prix TTC. Les compositions varient selon les fleurs de saison."
+    },
+    "galerie": {
+      "actif": true,
+      "menu": "Galerie",
+      "titre": "Galerie",
+      "intro": "Un aperçu de nos compositions. Les visuels seront remplacés par vos propres photos.",
+      "images": [
+        { "src": "visuels/fleuriste/bouquet.svg", "alt": "Bouquet champêtre", "legende": "Bouquet champêtre" },
+        { "src": "visuels/fleuriste/tulipes.svg", "alt": "Tulipes de printemps", "legende": "Tulipes de printemps" },
+        { "src": "visuels/fleuriste/pivoines.svg", "alt": "Pivoines", "legende": "Pivoines de mai" },
+        { "src": "visuels/fleuriste/couronne.svg", "alt": "Couronne de fleurs", "legende": "Couronne de mariage" },
+        { "src": "visuels/fleuriste/plantes.svg", "alt": "Plante d'intérieur", "legende": "Plantes vertes" },
+        { "src": "visuels/fleuriste/vase.svg", "alt": "Branchages en vase", "legende": "Branchages d'hiver" }
+      ]
+    },
+    "avis": {
+      "actif": true,
+      "menu": "Avis",
+      "titre": "Ils nous font confiance",
+      "note": 4.8,
+      "nombre": 127,
+      "liste": [
+        { "auteur": "Camille R.", "note": 5, "texte": "Bouquet magnifique pour l'anniversaire de ma mère, et des conseils vraiment personnalisés.", "exemple": true },
+        { "auteur": "Thomas B.", "note": 5, "texte": "Ils ont fait toutes les fleurs de notre mariage. Résultat superbe et budget respecté.", "exemple": true },
+        { "auteur": "Inès M.", "note": 4, "texte": "Belle boutique, fleurs fraîches qui tiennent longtemps. Livraison rapide dans le 9e.", "exemple": true }
+      ]
+    },
+    "horaires": {
+      "actif": true,
+      "menu": "Horaires",
+      "titre": "Horaires",
+      "semaine": [
+        { "jour": "Lundi", "plages": [] },
+        { "jour": "Mardi", "plages": ["9h30 – 19h30"] },
+        { "jour": "Mercredi", "plages": ["9h30 – 19h30"] },
+        { "jour": "Jeudi", "plages": ["9h30 – 19h30"] },
+        { "jour": "Vendredi", "plages": ["9h30 – 20h00"] },
+        { "jour": "Samedi", "plages": ["9h00 – 20h00"] },
+        { "jour": "Dimanche", "plages": ["9h30 – 13h30"] }
+      ],
+      "note": "Ouvert les jours fériés le matin (sauf 1er mai : vente de muguet toute la journée)."
+    },
+    "devis": {
+      "actif": true,
+      "menu": "Devis",
+      "titre": "Un événement ? Demandez un devis",
+      "intro": "Mariage, baptême, dîner, inauguration… Décrivez votre projet, nous vous répondons sous 48 h.",
+      "types": ["Mariage", "Deuil", "Événement privé", "Événement professionnel", "Abonnement fleurs", "Autre"],
+      "formulaire": { "action": null },
+      "merci": "Merci ! Nous revenons vers vous sous 48 h."
+    },
+    "reservation": {
+      "actif": false,
+      "menu": "Réserver",
+      "titre": "Réserver",
+      "fournisseur": "Planity",
+      "url": "https://www.planity.com/",
+      "texte": "Réservez en ligne en quelques clics."
+    },
+    "acces": {
+      "actif": true,
+      "menu": "Accès",
+      "titre": "Nous trouver",
+      "indications": [
+        "Métro Abbesses (ligne 12) ou Blanche (ligne 2), à 4 minutes à pied",
+        "Bus 40, arrêt Lepic – Abbesses"
+      ]
+    },
+    "contact": {
+      "actif": true,
+      "menu": "Contact",
+      "titre": "Contact"
+    }
+  },
+  "mentionsLegales": {
+    "editeur": "[Nom ou raison sociale à compléter]",
+    "statut": "[Statut juridique à compléter]",
+    "siret": "[SIRET à compléter]",
+    "responsable": "[Responsable de la publication à compléter]",
+    "hebergeur": {
+      "nom": "Cloudflare, Inc.",
+      "adresse": "101 Townsend St, San Francisco, CA 94107, États-Unis",
+      "site": "https://www.cloudflare.com"
+    }
+  }
+}
