@@ -2,6 +2,7 @@
 import pandas as pd
 import streamlit as st
 
+import auth
 import config  # noqa: F401  (charge .env / secrets en premier)
 import db
 import places
@@ -10,6 +11,7 @@ import site_check as sc
 from metiers import METIERS, NOMS
 
 st.set_page_config(page_title="Prospection — Scanner", page_icon="🔎", layout="wide")
+auth.exiger_mot_de_passe()
 st.title("Scanner de prospects")
 st.caption("Commerces bien notés, sans vrai site, triés par priorité. Rien n'est rescanné avant "
            f"{config.RESCAN_DAYS} jours sans le demander.")

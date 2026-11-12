@@ -11,7 +11,7 @@ Scanner (Google Places + PageSpeed) → Score → CRM → Génération démo Ast
 ## Architecture
 | Brique | Techno | Rôle |
 |---|---|---|
-| Back-office interne | Python + Streamlit + SQLite | Scanner, scoring, CRM, génération démo/one-pager |
+| Back-office interne | Python + Streamlit + SQLite (local) / Supabase (en ligne) | Scanner, scoring, CRM, génération démo/one-pager |
 | Données lieux | Google Places API (New), field masks stricts | Note, nb d'avis, site web, horaires, catégorie |
 | Qualité site existant | PageSpeed Insights API (gratuit) | Score mobile, vitesse, HTTPS |
 | Sites clients + démos | Astro (template unique) + `config.json` par client | Site vitrine statique, rapide, SEO |
@@ -78,7 +78,8 @@ Scanner (Google Places + PageSpeed) → Score → CRM → Génération démo Ast
 ## Changements de direction
 | Date | Changement | Pourquoi |
 |---|---|---|
-| 12/11/2026 | Back-office réécrit depuis le prototype prospect-automation : SQLite au lieu de Supabase, sans NLU ni clés de l'ancien projet | Respecter la stack et repartir avec ses propres clés |
+| 12/11/2026 | Base Supabase (Postgres) pour la version en ligne, SQLite gardé en local ; accès protégé par mot de passe | Sur Streamlit Cloud le disque est effacé à chaque redémarrage |
+| 12/11/2026 | Back-office réécrit depuis le prototype prospect-automation, sans NLU, sans modèle d'email Bookline ni clés de l'ancien projet | Coller aux critères du projet et repartir avec ses propres clés |
 | 11/11/2026 | Offre ramenée à 2 formules : Base 350 €, Plus 450 € (réservation, anglais, devis, carte) + maintenance 20 €/mois. Fin de Premium et des modes annuel / mensuel sans création | Offre plus simple à vendre en boutique |
 | 11/11/2026 | SEO local inclus dans toutes les formules et mis en avant | Argument de vente clé |
 | 11/11/2026 | Analytics : Umami auto-hébergé, Plausible écarté | Plausible ≈ 9 $/mois par site, trop cher face à 20 €/mois |
