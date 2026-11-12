@@ -33,9 +33,11 @@ streamlit run Scanner.py
 
 Clé Google :
 1. Ouvre console.cloud.google.com, crée un projet et active la facturation (obligatoire, même pour rester dans le gratuit).
-2. Active « Places API (New) » et « PageSpeed Insights API ».
-3. Crée une clé API **restreinte à ces deux API**.
-4. Mets une **alerte budget** à 1 € et, dans Quotas, un plafond journalier sur Text Search.
+2. Active « Places API (New) » et crée une clé : restriction d'application **Aucune** (le scanner appelle Google depuis Python, une restriction « Sites Web » bloquerait tout), restriction d'API **Places API (New) uniquement**.
+3. Mets une **alerte budget** à 1 € et, dans Quotas, un plafond journalier sur Text Search.
+4. PageSpeed : rien à faire (marche sans clé), ou une 2e clé restreinte à « PageSpeed Insights API » dans `PAGESPEED_API_KEY`.
+
+À lancer en local : sur Streamlit Community Cloud, le disque est effacé à chaque redémarrage et la base SQLite (CRM) serait perdue.
 
 ## Coûts et quota
 - 1 requête Text Search Enterprise = 20 lieux. 1 000 requêtes gratuites par mois, puis 35 $ les 1 000.

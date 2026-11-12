@@ -25,7 +25,8 @@ def _int(nom: str, defaut: int) -> int:
 
 
 PLACES_KEY = os.getenv("GOOGLE_PLACES_API_KEY", "")
-PAGESPEED_KEY = os.getenv("PAGESPEED_API_KEY", "") or PLACES_KEY
+# Pas de repli sur la clé Places : elle est limitée aux API Maps et serait refusée par PageSpeed.
+PAGESPEED_KEY = os.getenv("PAGESPEED_API_KEY", "")
 MONTHLY_LIMIT = _int("PLACES_MONTHLY_LIMIT", 900)
 DAILY_LIMIT = _int("PLACES_DAILY_LIMIT", 60)
 RESCAN_DAYS = _int("RESCAN_DAYS", 30)
