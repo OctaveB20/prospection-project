@@ -7,14 +7,18 @@ from dotenv import load_dotenv
 RACINE = Path(__file__).parent
 load_dotenv(RACINE / ".env")
 
+SECRETS_ERREUR = ""
 try:  # Streamlit Community Cloud : les Secrets complètent le .env
     import streamlit as st
 
     for k, v in st.secrets.items():
-        if isinstance(v, (str, int, float, bool)):
-            os.environ.setdefault(k, str(v))
-except Exception:
-    pass
+        # Tolère une section ([general], [secrets]…) et les noms en minuscules.
+        valeurs = v.items() if hasattr(v, "items") else [(k, v)]
+        for k2, v2 in valeurs:
+            if isinstance(v2, (str, int, float, bool)):
+                os.environ.setdefault(k2.upper(), str(v2))
+except Exception as e:  # pas de fichier de secrets en local : normal ; TOML invalide en ligne : signalé
+    SECRETS_ERREUR = f"{type(e).__name__} : {e}"
 
 
 def _int(nom: str, defaut: int) -> int:
@@ -37,5 +41,7 @@ DB_PATH = Path(os.getenv("PROSPECTION_DB", RACINE / "data" / "prospection.db"))
 DATABASE_URL = os.getenv("DATABASE_URL", "")
 # Mot de passe d'accès à l'app (obligatoire dès que l'app est en ligne).
 APP_PASSWORD = os.getenv("APP_PASSWORD", "")
+# Streamlit Community Cloud exécute l'app depuis /mount/src/<dépôt>.
+EN_LIGNE = str(RACINE).startswith("/mount/src") or bool(DATABASE_URL)
 # Mode test sans clé : fichier JSON au format de la réponse Text Search (voir tests/fixtures).
 FAKE_PLACES_FILE = os.getenv("PLACES_FAKE_FILE", "")

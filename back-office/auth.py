@@ -8,8 +8,11 @@ import config
 
 def exiger_mot_de_passe() -> None:
     if not config.APP_PASSWORD:
-        if config.DATABASE_URL:  # en ligne sans mot de passe : on refuse d'ouvrir
-            st.error("APP_PASSWORD manquant dans les Secrets : l'app reste fermée tant qu'il n'est pas défini.")
+        if config.EN_LIGNE:  # en ligne sans mot de passe : on refuse d'ouvrir
+            st.error("APP_PASSWORD introuvable dans les Secrets : l'app reste fermée tant qu'il n'est pas défini.")
+            if config.SECRETS_ERREUR and "No secrets" not in config.SECRETS_ERREUR:
+                st.warning(f"Les Secrets sont illisibles (format TOML) : {config.SECRETS_ERREUR}")
+            st.info('Format attendu, une ligne par secret, valeurs entre guillemets : APP_PASSWORD = "ton-mot-de-passe"')
             st.stop()
         return
     if st.session_state.get("authentifie"):
