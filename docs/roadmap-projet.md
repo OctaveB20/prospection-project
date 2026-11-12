@@ -31,17 +31,17 @@ Scanner (Google Places + PageSpeed) → Score → CRM → Génération démo Ast
 - **Critère de sortie :** au moins 1 intérêt sérieux / objections connues
 
 ## Phase 1 — Moteur de repérage (à partir du prototype existant)
-- [ ] Recherche par zone + catégorie (Text Search, field masks minimaux)
-- [ ] Détection « faux sites » : websiteUri vers Facebook / Instagram / Linktree / annuaires = pas de site
-- [ ] Audit PageSpeed pour les commerces qui ont un site (mobile, vitesse, HTTPS)
-- [ ] Score de priorité : note × log(nb avis) + bonus catégorie dépendante de la recherche + bonus si concurrents proches ont un site + bonus site absent/médiocre
-- [ ] Cache : stocker `place_id` + date du dernier scan, ne jamais rescanner une zone récente
-- [ ] Suivi du quota (1 000 appels Enterprise gratuits/mois, ~20 lieux par appel)
+- [x] Recherche par zone + catégorie (Text Search, field masks minimaux) — `back-office/`
+- [x] Détection « faux sites » : websiteUri vers Facebook / Instagram / Linktree / annuaires = pas de site
+- [x] Audit PageSpeed pour les commerces qui ont un site (mobile, vitesse, HTTPS)
+- [x] Score de priorité : note × log(nb avis) + bonus catégorie dépendante de la recherche + bonus si concurrents proches ont un site + bonus site absent/médiocre
+- [x] Cache : stocker `place_id` + date du dernier scan, ne jamais rescanner une zone récente
+- [x] Suivi du quota (1 000 appels Enterprise gratuits/mois, ~20 lieux par appel)
 
 ## Phase 2 — CRM minimal
-- [ ] Table SQLite : commerce, score, contact, statut, date de relance, notes
-- [ ] Statuts : repéré → contacté → démo vue → relancé → signé / refus
-- [ ] Vue « à relancer aujourd'hui »
+- [x] Table SQLite : commerce, score, contact, statut, date de relance, notes
+- [x] Statuts : repéré → contacté → démo vue → relancé → signé / refus
+- [x] Vue « à relancer aujourd'hui »
 
 ## Phase 3 — Template Astro + génération de démo
 - [x] Template unique, sections activables : accueil, services/menu, horaires, carte, avis, contact, réservation, devis (`site-template/`)
@@ -78,6 +78,7 @@ Scanner (Google Places + PageSpeed) → Score → CRM → Génération démo Ast
 ## Changements de direction
 | Date | Changement | Pourquoi |
 |---|---|---|
+| 12/11/2026 | Back-office réécrit depuis le prototype prospect-automation : SQLite au lieu de Supabase, sans NLU ni clés de l'ancien projet | Respecter la stack et repartir avec ses propres clés |
 | 11/11/2026 | Offre ramenée à 2 formules : Base 350 €, Plus 450 € (réservation, anglais, devis, carte) + maintenance 20 €/mois. Fin de Premium et des modes annuel / mensuel sans création | Offre plus simple à vendre en boutique |
 | 11/11/2026 | SEO local inclus dans toutes les formules et mis en avant | Argument de vente clé |
 | 11/11/2026 | Analytics : Umami auto-hébergé, Plausible écarté | Plausible ≈ 9 $/mois par site, trop cher face à 20 €/mois |

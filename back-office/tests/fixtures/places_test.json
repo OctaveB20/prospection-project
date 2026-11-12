@@ -1,0 +1,24 @@
+{
+  "_note": "Lieux FICTIFS, au format de la réponse Text Search (New), pour tester sans clé Google.",
+  "places": [
+    {"id": "fake-001", "displayName": {"text": "Fleurs Test Abbesses"}, "formattedAddress": "Rue Test 1, 75018 Paris",
+     "location": {"latitude": 48.8846, "longitude": 2.3381}, "rating": 4.8, "userRatingCount": 132,
+     "nationalPhoneNumber": "01 99 00 00 01", "googleMapsUri": "https://maps.google.com/?cid=1", "businessStatus": "OPERATIONAL"},
+    {"id": "fake-002", "displayName": {"text": "Atelier Test Lepic"}, "formattedAddress": "Rue Test 2, 75018 Paris",
+     "location": {"latitude": 48.8850, "longitude": 2.3340}, "rating": 4.6, "userRatingCount": 87,
+     "websiteUri": "https://www.instagram.com/atelier.test", "nationalPhoneNumber": "01 99 00 00 02",
+     "googleMapsUri": "https://maps.google.com/?cid=2", "businessStatus": "OPERATIONAL"},
+    {"id": "fake-003", "displayName": {"text": "Fleuriste Test Lamarck"}, "formattedAddress": "Rue Test 3, 75018 Paris",
+     "location": {"latitude": 48.8898, "longitude": 2.3390}, "rating": 4.4, "userRatingCount": 45,
+     "websiteUri": "https://www.pagesjaunes.fr/pros/000000", "googleMapsUri": "https://maps.google.com/?cid=3", "businessStatus": "OPERATIONAL"},
+    {"id": "fake-004", "displayName": {"text": "Les Fleurs Test du 18e"}, "formattedAddress": "Rue Test 4, 75018 Paris",
+     "location": {"latitude": 48.8852, "longitude": 2.3375}, "rating": 4.7, "userRatingCount": 310,
+     "websiteUri": "https://fleurs-test.invalid", "googleMapsUri": "https://maps.google.com/?cid=4", "businessStatus": "OPERATIONAL"},
+    {"id": "fake-005", "displayName": {"text": "Test Flora"}, "formattedAddress": "Rue Test 5, 75018 Paris",
+     "location": {"latitude": 48.8900, "longitude": 2.3450}, "rating": 3.6, "userRatingCount": 12,
+     "websiteUri": "https://testflora.wixsite.com/accueil", "googleMapsUri": "https://maps.google.com/?cid=5", "businessStatus": "OPERATIONAL"},
+    {"id": "fake-006", "displayName": {"text": "Fermé Test"}, "formattedAddress": "Rue Test 6, 75018 Paris",
+     "location": {"latitude": 48.8860, "longitude": 2.3390}, "rating": 4.9, "userRatingCount": 60,
+     "googleMapsUri": "https://maps.google.com/?cid=6", "businessStatus": "CLOSED_PERMANENTLY"}
+  ]
+}
