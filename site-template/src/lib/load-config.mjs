@@ -5,14 +5,9 @@ import path from 'node:path';
 
 export const CONFIG_PAR_DEFAUT = 'configs/fleuriste-atelier-petale.json';
 
-const FORMULES = {
-  basique: { modules: 1, galerie: 15 },
-  plus: { modules: 2, galerie: 30 },
-  premium: { modules: Infinity, galerie: Infinity },
-};
-
-// Sections qui comptent comme « module métier » dans l'offre.
-const MODULES_METIER = ['tarifs', 'devis', 'reservation', 'menu'];
+// Offre au 11/11/2026 (docs/offre-et-prix.md) : sections réservées à la formule Plus.
+const FORMULES = { base: {}, plus: {} };
+const SECTIONS_PLUS = ['reservation', 'devis', 'acces'];
 
 // Règle Google : aucune photo issue de Google dans les sites ou démos.
 const DOMAINES_INTERDITS = [
@@ -55,7 +50,7 @@ export function validerConfig(cfg) {
   if (cfg.slug && !/^[a-z0-9-]+$/.test(cfg.slug)) e.push('slug : minuscules, chiffres et tirets uniquement');
   requis(cfg.metier, 'metier');
   requis(cfg.formule, 'formule');
-  if (cfg.formule && !FORMULES[cfg.formule]) e.push(`formule inconnue : ${cfg.formule} (basique, plus, premium)`);
+  if (cfg.formule && !FORMULES[cfg.formule]) e.push(`formule inconnue : ${cfg.formule} (base, plus)`);
   requis(cfg.commerce?.nom, 'commerce.nom');
   requis(cfg.commerce?.telephone, 'commerce.telephone');
   requis(cfg.commerce?.adresse?.rue, 'commerce.adresse.rue');
@@ -72,18 +67,10 @@ export function validerConfig(cfg) {
     }
   }
 
-  const regles = FORMULES[cfg.formule];
-  if (regles && cfg.sections) {
-    const actifs = MODULES_METIER.filter((m) => cfg.sections[m]?.actif);
-    if (actifs.length > regles.modules) {
-      e.push(`formule ${cfg.formule} : ${regles.modules} module(s) métier max, ${actifs.length} actifs (${actifs.join(', ')})`);
-    }
-    const nbImages = cfg.sections.galerie?.images?.length ?? 0;
-    if (cfg.sections.galerie?.actif && nbImages > regles.galerie) {
-      e.push(`formule ${cfg.formule} : galerie limitée à ${regles.galerie} visuels (${nbImages} fournis)`);
-    }
-    if (cfg.formule === 'basique' && cfg.sections.produits?.actif) {
-      e.push('formule basique : la section produits détaillés n\'est pas incluse');
+  if (cfg.formule === 'base' && cfg.sections) {
+    const enTrop = SECTIONS_PLUS.filter((m) => cfg.sections[m]?.actif);
+    if (enTrop.length) {
+      e.push(`formule base : ${enTrop.join(', ')} réservé(s) à la formule Plus`);
     }
   }
 
