@@ -9,7 +9,7 @@ Documents de référence, à lire avant de proposer une étape :
 - `docs/offre-et-prix.md` : formules Base (350 €) / Plus (450 €) + maintenance 20 €/mois, SEO local inclus, paiement, coûts, cibles par métier, fiscalité. Ces décisions sont prises : ne propose pas d'autre grille sauf demande explicite, et signale toute idée qui les contredit.
 
 ## Stack (décidée — ne pas proposer d'alternatives sauf demande)
-- Back-office interne : Python + Streamlit + SQLite (scanner, scoring, CRM, génération)
+- Back-office interne : Python + Streamlit (scanner, scoring, CRM, génération) ; base SQLite en local, Postgres Supabase en ligne (Streamlit Community Cloud), via `DATABASE_URL`
 - Données : Google Places API (New) avec field masks stricts + PageSpeed Insights API
 - Sites clients et démos : Astro, UN seul template, un `config.json` par client
 - Déploiement : GitHub → Cloudflare Pages ou Netlify

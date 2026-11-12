@@ -4,11 +4,13 @@ from datetime import date
 import pandas as pd
 import streamlit as st
 
+import auth
 import config  # noqa: F401
 import db
 import places
 
 st.set_page_config(page_title="Prospection — CRM", page_icon="📋", layout="wide")
+auth.exiger_mot_de_passe()
 st.title("CRM")
 
 prospects = db.lire_prospects()
