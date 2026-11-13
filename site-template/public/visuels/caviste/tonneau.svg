@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Tonneau de chêne">
+<rect width="800" height="600" fill="#efe6da"/>
+<rect y="480" width="800" height="120" fill="#d2bd9f"/>
+<path d="M250 110h300c40 120 40 260 0 380H250c-40-120-40-260 0-380z" fill="#9a6b43"/>
+<g fill="#86593a"><path d="M300 110h40c-24 120-24 260 0 380h-40c-26-120-26-260 0-380z"/><path d="M460 110h40c26 120 26 260 0 380h-40c24-120 24-260 0-380z"/></g>
+<g fill="#4a3a30"><rect x="236" y="150" width="328" height="22" rx="6"/><rect x="226" y="290" width="348" height="22" rx="6"/><rect x="236" y="428" width="328" height="22" rx="6"/></g>
+<ellipse cx="400" cy="300" rx="18" ry="18" fill="#3a2a22"/>
+<g transform="translate(620 470)"><rect x="-10" y="-150" width="20" height="40" fill="#6b1e2e"/><path d="M-26 -110h52v110c0 8-6 14-14 14h-24c-8 0-14-6-14-14z" fill="#6b1e2e"/></g>
+</svg>

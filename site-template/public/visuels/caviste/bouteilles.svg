@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Bouteilles de vin">
+<defs><path id="b" d="M-14 -190h28v70c0 18 34 34 34 78v230c0 10-8 18-18 18h-60c-10 0-18-8-18-18v-230c0-44 34-60 34-78z"/></defs>
+<rect width="800" height="600" fill="#efe6da"/>
+<circle cx="620" cy="140" r="170" fill="#e8dccb"/>
+<rect y="470" width="800" height="130" fill="#d9c7ae"/>
+<rect x="120" y="455" width="560" height="22" rx="6" fill="#8a6a4a"/>
+<use href="#b" fill="#3d1520" transform="translate(220 270)"/>
+<use href="#b" fill="#6b1e2e" transform="translate(330 250) scale(1.08)"/>
+<use href="#b" fill="#2f3b23" transform="translate(445 270)"/>
+<use href="#b" fill="#c9b27a" transform="translate(560 285) scale(.95)"/>
+<g fill="#f3ead8"><rect x="196" y="330" width="48" height="60" rx="4"/><rect x="304" y="318" width="52" height="66" rx="4"/><rect x="421" y="330" width="48" height="60" rx="4"/><rect x="537" y="340" width="46" height="56" rx="4"/></g>
+<g fill="#b08a3e"><rect x="206" y="80" width="28" height="22" rx="3"/><rect x="315" y="44" width="30" height="24" rx="3"/><rect x="431" y="80" width="28" height="22" rx="3"/><rect x="547" y="104" width="26" height="20" rx="3"/></g>
+</svg>

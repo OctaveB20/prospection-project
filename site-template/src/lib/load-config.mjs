@@ -74,6 +74,18 @@ export function validerConfig(cfg) {
     }
   }
 
+  for (const [i, ev] of (cfg.sections?.evenements?.liste ?? []).entries()) {
+    if (!ev.titre) e.push(`événement n°${i + 1} : titre manquant`);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(ev.date ?? '')) e.push(`événement n°${i + 1} : date au format AAAA-MM-JJ requise`);
+    if (ev.inscription?.type === 'lien' && !ev.inscription.url) e.push(`événement n°${i + 1} : inscription par lien sans url`);
+    if (ev.inscription?.type === 'devis' && !cfg.sections?.devis?.actif) {
+      e.push(`événement n°${i + 1} : inscription par devis mais la section devis est désactivée`);
+    }
+  }
+  if (cfg.metier === 'caviste' && !(cfg.commerce?.avertissements ?? []).some((a) => /abus d.alcool/i.test(a))) {
+    e.push("caviste : message sanitaire obligatoire (loi Évin) manquant dans commerce.avertissements");
+  }
+
   const texte = JSON.stringify(cfg);
   for (const d of DOMAINES_INTERDITS) {
     if (texte.includes(d)) e.push(`image ou ressource Google interdite (${d}) : utiliser les visuels génériques`);

@@ -112,6 +112,7 @@ Domaine ≈ 6 € puis 9,35 € · hébergement 0 € · formulaire de devis Web
 Micro-entreprise BNC : 25,6 % + versement libératoire 2,2 % ≈ 27,8 % du CA (ACRE 1ère année : 19,2 % + 2,2 %). Plafond 83 600 €. Franchise de TVA jusqu'à 37 500 € de CA (seuil majoré 41 250 €) : mention « TVA non applicable, art. 293 B du CGI ». Chèque numérique Île-de-France clos : ne pas l'utiliser comme argument.
 
 ## Questions ouvertes
+- Section « Événements à venir » (dégustations, ateliers) : incluse en Base, en Plus, ou option payante ? Mise à jour des dates = modifications de maintenance.
 - La maintenance à 20 €/mois est-elle obligatoire ? (recommandé : oui, elle couvre hébergement, domaine et SEO)
 - Plafond de 1 h/mois de modifications : à confirmer.
 - Acompte à la signature ou tout à la mise en ligne ?

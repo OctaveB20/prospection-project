@@ -46,10 +46,11 @@ Scanner (Google Places + PageSpeed) → Score → CRM → Génération démo Ast
 ## Phase 3 — Template Astro + génération de démo
 - [x] Template unique, sections activables : accueil, services/menu, horaires, carte, avis, contact, réservation, devis (`site-template/`)
 - [x] Première démo : fleuriste fictif à Montmartre (`configs/fleuriste-atelier-petale.json`)
+- [x] Démo caviste fictif aux Batignolles avec section « Événements à venir » (`configs/caviste-vins-et-sarments.json`)
 - [ ] Module menu restaurant, version anglaise (formule Plus)
 - [ ] SEO technique : sitemap, robots, schema.org (fait), hreflang pour l'anglais
 - [ ] `config.json` par commerce rempli automatiquement depuis Places (nom, adresse, horaires, catégorie, 2-3 avis)
-- [ ] Visuels génériques par catégorie (pas de photos Google) — fleuriste fait, reste caviste, restaurant…
+- [ ] Visuels génériques par catégorie (pas de photos Google) — fleuriste et caviste faits, reste restaurant, artisans…
 - [ ] Démo publiée sur URL privée : `demo.<domaine>/<slug-commerce>`
 - [ ] 2 variantes visibles = les 2 formules (Base / Plus)
 

@@ -1,0 +1,239 @@
+{
+  "slug": "vins-et-sarments",
+  "metier": "caviste",
+  "formule": "plus",
+  "demo": {
+    "actif": true,
+    "urlBase": "https://demo.example.com",
+    "message": "Démo réalisée pour Vins & Sarments — voici à quoi pourrait ressembler votre site."
+  },
+  "site": {
+    "url": "https://www.vins-et-sarments.example"
+  },
+  "commerce": {
+    "nom": "Vins & Sarments",
+    "slogan": "Caviste de quartier aux Batignolles",
+    "adresse": {
+      "rue": "Rue Legendre",
+      "codePostal": "75017",
+      "ville": "Paris",
+      "quartier": "Batignolles"
+    },
+    "geo": { "lat": 48.8868, "lng": 2.3190 },
+    "telephone": "01 99 00 45 67",
+    "email": "cave@vins-et-sarments.example",
+    "placeId": null,
+    "reseaux": {
+      "instagram": "https://www.instagram.com/",
+      "facebook": null,
+      "tiktok": null
+    },
+    "avertissements": [
+      "L'abus d'alcool est dangereux pour la santé, à consommer avec modération.",
+      "La vente d'alcool aux mineurs est interdite."
+    ]
+  },
+  "theme": {
+    "principale": "#6b1e2e",
+    "accent": "#9a7430",
+    "fond": "#faf7f2",
+    "texte": "#2a1f1d",
+    "clair": "#efe6da"
+  },
+  "seo": {
+    "titre": "Vins & Sarments — Caviste aux Batignolles, Paris 17e",
+    "description": "Caviste indépendant aux Batignolles (Paris 17e) : vins de vignerons, champagnes, spiritueux, dégustations chaque mois et coffrets cadeaux sur mesure.",
+    "typeSchema": "LiquorStore"
+  },
+  "analytics": {
+    "plausibleDomaine": null,
+    "umamiId": null,
+    "umamiSrc": null
+  },
+  "ordre": ["accueil", "apropos", "evenements", "produits", "tarifs", "galerie", "avis", "horaires", "devis", "acces", "contact"],
+  "sections": {
+    "accueil": {
+      "actif": true,
+      "accroche": "Des vins de vignerons choisis à la propriété, des conseils sans jargon et une dégustation chaque mois.",
+      "boutonPrincipal": "Voir les dégustations",
+      "boutonCible": "evenements",
+      "image": { "src": "visuels/caviste/bouteilles.svg", "alt": "Illustration de bouteilles de vin sur une étagère" }
+    },
+    "apropos": {
+      "actif": true,
+      "menu": "La cave",
+      "titre": "La cave",
+      "texte": [
+        "Vins & Sarments sélectionne près de 400 références auprès de vignerons indépendants, la plupart rencontrés sur leur domaine.",
+        "Un vin pour un dîner, un cadeau ou une cave à constituer : dites-nous ce que vous aimez et votre budget, on s'occupe du reste."
+      ],
+      "pointsForts": [
+        { "titre": "Vignerons indépendants", "texte": "Des domaines familiaux, en bio ou en biodynamie pour une bonne partie." },
+        { "titre": "Conseil personnalisé", "texte": "Accords mets-vins, idées cadeaux, vins de garde : on prend le temps." },
+        { "titre": "Dégustations mensuelles", "texte": "En petit comité, souvent en présence du vigneron." }
+      ]
+    },
+    "evenements": {
+      "actif": true,
+      "menu": "Dégustations",
+      "titre": "Dégustations et événements",
+      "intro": "En petit groupe (12 personnes au maximum), à la cave. Réservation conseillée.",
+      "aucun": "Pas de dégustation programmée pour le moment : passez nous voir ou suivez-nous sur Instagram pour la prochaine date.",
+      "liste": [
+        {
+          "titre": "Beaujolais nouveau, version vignerons",
+          "date": "2026-11-19",
+          "heure": "18h30",
+          "duree": "2 h",
+          "prix": "Entrée libre",
+          "description": "Trois beaujolais nouveaux de petits domaines, à découvrir au comptoir avec une assiette de charcuterie.",
+          "inscription": { "type": "telephone", "libelle": "Prévenir de ma venue" }
+        },
+        {
+          "titre": "Champagnes de vignerons",
+          "date": "2026-11-28",
+          "heure": "17h00",
+          "duree": "1 h 30",
+          "prix": "35 € par personne",
+          "places": "12 places",
+          "description": "Cinq champagnes de récoltants-manipulants pour préparer les fêtes, du brut nature au rosé de saignée.",
+          "inscription": { "type": "telephone" }
+        },
+        {
+          "titre": "Accords vins et fromages",
+          "date": "2026-12-05",
+          "heure": "19h00",
+          "duree": "2 h",
+          "prix": "45 € par personne",
+          "places": "10 places",
+          "description": "Avec la fromagerie voisine : six fromages affinés, six vins, et les explications de chaque accord.",
+          "inscription": { "type": "telephone" }
+        },
+        {
+          "titre": "Atelier : apprendre à déguster",
+          "date": "2026-12-12",
+          "heure": "15h00",
+          "duree": "2 h",
+          "prix": "30 € par personne",
+          "places": "12 places",
+          "description": "Les bases pour décrire un vin et choisir en confiance : vue, nez, bouche, et quatre vins pour s'exercer.",
+          "inscription": { "type": "devis", "libelle": "Demander une place" }
+        },
+        {
+          "titre": "Vins du Jura, avec le vigneron",
+          "date": "2027-01-16",
+          "heure": "18h00",
+          "duree": "2 h",
+          "prix": "25 € par personne",
+          "places": "12 places",
+          "description": "Savagnin, trousseau, vin jaune : un vigneron jurassien présente son domaine et ses cuvées.",
+          "inscription": { "type": "telephone" }
+        }
+      ]
+    },
+    "produits": {
+      "actif": true,
+      "menu": "Sélection",
+      "titre": "Notre sélection",
+      "items": [
+        { "titre": "Vins de vignerons", "texte": "Rouges, blancs, rosés et orange, de la Loire au Languedoc.", "image": { "src": "visuels/caviste/verres.svg", "alt": "Illustration de deux verres de vin" } },
+        { "titre": "Champagnes et bulles", "texte": "Récoltants-manipulants, crémants et pétillants naturels.", "image": { "src": "visuels/caviste/carafe.svg", "alt": "Illustration d'une carafe à décanter" } },
+        { "titre": "Spiritueux", "texte": "Whiskies, rhums, cognacs et armagnacs de petites distilleries.", "image": { "src": "visuels/caviste/tonneau.svg", "alt": "Illustration d'un tonneau de chêne" } },
+        { "titre": "Coffrets cadeaux", "texte": "Composés sur mesure, pour les particuliers comme pour les entreprises.", "image": { "src": "visuels/caviste/caisse.svg", "alt": "Illustration d'une caisse de vin en bois" } }
+      ]
+    },
+    "tarifs": {
+      "actif": true,
+      "menu": "Tarifs",
+      "titre": "Repères de prix",
+      "lignes": [
+        { "libelle": "Vins du quotidien", "prix": "dès 9 €", "detail": "notre sélection « à moins de 15 € »" },
+        { "libelle": "Champagnes de vignerons", "prix": "dès 32 €" },
+        { "libelle": "Coffret 2 bouteilles", "prix": "dès 35 €", "detail": "emballage cadeau offert" },
+        { "libelle": "Coffrets d'entreprise", "prix": "sur devis", "detail": "dès 10 coffrets" },
+        { "libelle": "Dégustation privée", "prix": "sur devis", "detail": "anniversaire, équipe, client" }
+      ],
+      "note": "Prix TTC, indicatifs selon les millésimes."
+    },
+    "galerie": {
+      "actif": true,
+      "menu": "Galerie",
+      "titre": "La cave en images",
+      "intro": "Les visuels seront remplacés par vos propres photos.",
+      "images": [
+        { "src": "visuels/caviste/bouteilles.svg", "alt": "Bouteilles de vin", "legende": "Les nouveautés du mois" },
+        { "src": "visuels/caviste/verres.svg", "alt": "Verres de vin", "legende": "Au comptoir de dégustation" },
+        { "src": "visuels/caviste/fromages.svg", "alt": "Planche vins et fromages", "legende": "Soirée vins et fromages" },
+        { "src": "visuels/caviste/tonneau.svg", "alt": "Tonneau", "legende": "Le coin spiritueux" },
+        { "src": "visuels/caviste/caisse.svg", "alt": "Caisse de vin", "legende": "Coffrets sur mesure" },
+        { "src": "visuels/caviste/carafe.svg", "alt": "Carafe", "legende": "Vins à carafer" }
+      ]
+    },
+    "avis": {
+      "actif": true,
+      "menu": "Avis",
+      "titre": "Ils en parlent",
+      "note": 4.9,
+      "nombre": 83,
+      "liste": [
+        { "auteur": "Julien P.", "note": 5, "texte": "Conseils précis pour un dîner, et le vin était parfait. La dégustation champagne vaut le détour.", "exemple": true },
+        { "auteur": "Sophie L.", "note": 5, "texte": "Coffrets de fin d'année pour toute mon équipe, livrés à l'heure et joliment présentés.", "exemple": true },
+        { "auteur": "Karim D.", "note": 4, "texte": "Belle sélection de vignerons, on sent la passion. Un peu de monde le samedi soir.", "exemple": true }
+      ]
+    },
+    "horaires": {
+      "actif": true,
+      "menu": "Horaires",
+      "titre": "Horaires",
+      "semaine": [
+        { "jour": "Lundi", "plages": [] },
+        { "jour": "Mardi", "plages": ["10h00 – 13h00", "15h30 – 20h00"] },
+        { "jour": "Mercredi", "plages": ["10h00 – 13h00", "15h30 – 20h00"] },
+        { "jour": "Jeudi", "plages": ["10h00 – 13h00", "15h30 – 20h30"] },
+        { "jour": "Vendredi", "plages": ["10h00 – 20h30"] },
+        { "jour": "Samedi", "plages": ["10h00 – 20h30"] },
+        { "jour": "Dimanche", "plages": ["10h00 – 13h00"] }
+      ],
+      "note": "Ouvert le lundi en décembre."
+    },
+    "devis": {
+      "actif": true,
+      "menu": "Devis",
+      "titre": "Dégustation privée ou coffrets d'entreprise",
+      "intro": "Une dégustation pour un anniversaire, une équipe ou des clients, ou des coffrets pour les fêtes : décrivez votre projet, réponse sous 48 h.",
+      "types": ["Dégustation privée", "Coffrets d'entreprise", "Atelier dégustation", "Cave à constituer", "Autre"],
+      "formulaire": { "action": null },
+      "merci": "Merci ! Nous revenons vers vous sous 48 h."
+    },
+    "reservation": {
+      "actif": false,
+      "fournisseur": "",
+      "url": ""
+    },
+    "acces": {
+      "actif": true,
+      "menu": "Accès",
+      "titre": "Nous trouver",
+      "indications": [
+        "Métro Brochant (ligne 13) ou Rome (ligne 2)",
+        "À deux pas du square des Batignolles"
+      ]
+    },
+    "contact": {
+      "actif": true,
+      "menu": "Contact",
+      "titre": "Contact"
+    }
+  },
+  "mentionsLegales": {
+    "editeur": "[Nom ou raison sociale à compléter]",
+    "statut": "[Statut juridique à compléter]",
+    "siret": "[SIRET à compléter]",
+    "responsable": "[Responsable de la publication à compléter]",
+    "hebergeur": {
+      "nom": "Cloudflare, Inc.",
+      "adresse": "101 Townsend St, San Francisco, CA 94107, États-Unis",
+      "site": "https://www.cloudflare.com"
+    }
+  }
+}

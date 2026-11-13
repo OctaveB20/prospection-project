@@ -2,7 +2,8 @@
 import { config, url, telLien, lienItineraire } from '../../lib/config';
 const s = config.sections.accueil!;
 const c = config.commerce;
-const cible = config.sections.devis?.actif ? '#devis'
+const cible = s.boutonCible ? `#${s.boutonCible}`
+  : config.sections.devis?.actif ? '#devis'
   : config.sections.reservation?.actif ? '#reservation'
   : '#contact';
 const avis = config.sections.avis;

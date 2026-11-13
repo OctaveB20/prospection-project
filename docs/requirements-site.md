@@ -33,6 +33,7 @@ Aucune clé API n'est nécessaire pour construire un site : toutes les données 
 | `reservation` | Bouton Planity / Zenchef / TheFork (intégration, pas de recodage) | **Plus** |
 | `devis` | Formulaire de demande de devis | **Plus** |
 | `acces` | Carte OpenStreetMap (sans cookies) + lien itinéraire | **Plus** |
+| `evenements` | Événements à venir (dégustations, ateliers, soirées) : les dates passées disparaissent seules, données schema.org Event pour Google ; inscription par billetterie externe, téléphone ou devis | à placer dans l'offre (voir offre-et-prix.md) |
 | *(à faire)* version anglaise | Pages en anglais + `hreflang` | **Plus** |
 
 Offre : Base 350 €, Plus 450 €, maintenance 20 €/mois (`docs/offre-et-prix.md`). **Le build échoue si une config `base` active une section réservée à Plus.**
@@ -45,6 +46,8 @@ Offre : Base 350 €, Plus 450 €, maintenance 20 €/mois (`docs/offre-et-prix
 - **Sans cookies** : pas de Google Maps intégré, pas de Google Fonts, analytics Plausible/Umami seulement en production.
 - **Mentions légales** : page `/mentions-legales` générée depuis la config (éditeur, SIRET, hébergeur).
 - **Formulaires** : désactivés en démo (message explicatif), branchés sur `formulaire.action` en production.
+
+**Mentions obligatoires par métier** : `commerce.avertissements` s'affiche en pied de page. Pour un caviste (vente d'alcool, loi Évin), le build échoue sans « L'abus d'alcool est dangereux pour la santé, à consommer avec modération. » ; ajouter aussi « La vente d'alcool aux mineurs est interdite. »
 
 ## 5. SEO local (inclus dans toutes les formules)
 - Généré par le template : `<title>` et description « métier + quartier » (`seo` dans la config), données structurées schema.org, `sitemap.xml`, `robots.txt` (démo : `Disallow: /`).
