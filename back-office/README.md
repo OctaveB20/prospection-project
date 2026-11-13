@@ -52,7 +52,7 @@ Sur Streamlit Cloud le disque est effacé à chaque redémarrage : la base doit 
    PLACES_MONTHLY_LIMIT = "900"
    PLACES_DAILY_LIMIT = "60"
    ```
-   L'URI exacte est celle copiée à l'étape 1. Sans `APP_PASSWORD`, l'app en ligne refuse de s'ouvrir.
+   L'URI exacte est celle copiée à l'étape 1. Les crochets autour du mot de passe et ses caractères spéciaux sont corrigés automatiquement ; tu peux aussi mettre le mot de passe à part dans `DATABASE_PASSWORD = "..."`. Sans `APP_PASSWORD`, l'app en ligne refuse de s'ouvrir.
 4. **Settings → Sharing** : mets l'app en privé si ton offre Streamlit le permet. Le mot de passe protège dans tous les cas.
 
 Ne jamais mettre ces valeurs dans le dépôt : `.env` et `.streamlit/secrets.toml` sont dans `.gitignore`.
