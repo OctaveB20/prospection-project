@@ -141,3 +141,15 @@ def test_cache_purge(monkeypatch):
     db.mettre_en_cache([{"place_id": "x", "nom": "X"}])
     monkeypatch.setattr(config, "CACHE_DAYS", -1)
     assert db.lire_cache(["x"]) == {}
+
+
+@pytest.mark.parametrize("url, indice", [
+    ("postgresql://postgres:motdepasse42@db.abcdefghij.supabase.co:5432/postgres", "Direct connection"),
+    ("postgresql://postgres.abc:[motdepasse42]@aws-0-eu-west-3.pooler.supabase.com:6543/postgres", "crochets"),
+    ("postgresql://postgres.abc:mot@passe42@aws-0-eu-west-3.pooler.supabase.com:6543/postgres", "contient un @"),
+    ("postgresql://postgres:motdepasse42@aws-0-eu-west-3.pooler.supabase.com:6543/postgres", "postgres.<ref"),
+])
+def test_diagnostic_sans_fuite_du_mot_de_passe(url, indice):
+    msg = db.diagnostic_url(url, "")
+    assert indice in msg
+    assert "motdepasse42" not in msg and "passe42" not in msg

@@ -84,9 +84,60 @@ def _ouvrir_pg():
     from psycopg.rows import dict_row
 
     if _pg is None or _pg.closed:
-        # prepare_threshold=None : le Transaction pooler de Supabase ne gère pas les requêtes préparées.
-        _pg = psycopg.connect(config.DATABASE_URL, prepare_threshold=None, connect_timeout=10, row_factory=dict_row)
+        try:
+            # prepare_threshold=None : le Transaction pooler de Supabase ne gère pas les requêtes préparées.
+            _pg = psycopg.connect(config.DATABASE_URL, prepare_threshold=None, connect_timeout=10, row_factory=dict_row)
+        except psycopg.Error as e:  # Operational, Programming… : le message brut peut contenir l'URL
+            raise ConnexionImpossible(diagnostic_url(config.DATABASE_URL, str(e))) from None
     return _pg
+
+
+class ConnexionImpossible(Exception):
+    """Connexion à Supabase impossible ; le message ne contient jamais le mot de passe."""
+
+
+def diagnostic_url(url: str, erreur: str = "") -> str:
+    """Explique ce qui cloche dans DATABASE_URL, sans jamais afficher le mot de passe."""
+    from urllib.parse import urlsplit
+
+    conseils = []
+    url = url.strip()
+    try:
+        u = urlsplit(url)
+        hote, port, user = u.hostname or "", u.port, u.username or ""
+    except ValueError:
+        hote, port, user = "", None, ""
+        conseils.append("L'adresse est illisible : le mot de passe contient sans doute un caractère spécial "
+                        "(@ : / ? # % [ ]). Change-le dans Supabase pour lettres + chiffres uniquement.")
+    if url.startswith(('"', "'")) or url.endswith(('"', "'")):
+        conseils.append("Des guillemets en trop entourent l'adresse : dans les Secrets, une seule paire.")
+    if not url.startswith(("postgresql://", "postgres://")):
+        conseils.append("L'adresse doit commencer par postgresql://")
+    if "[" in url or "]" in url or "YOUR-PASSWORD" in url.upper():
+        conseils.append("[YOUR-PASSWORD] n'a pas été remplacé, ou les crochets [ ] sont restés autour du mot de passe.")
+    if url.count("@") > 1:
+        conseils.append("Le mot de passe contient un @ : change-le pour lettres + chiffres uniquement.")
+    if hote.startswith("db.") and hote.endswith(".supabase.co"):
+        conseils.append("C'est l'adresse « Direct connection » (db.xxx.supabase.co), joignable seulement en IPv6 : "
+                        "Streamlit Cloud ne peut pas l'atteindre. Prends « Transaction pooler » "
+                        "(…pooler.supabase.com, port 6543).")
+    elif hote and "pooler.supabase.com" not in hote:
+        conseils.append("L'hôte n'est pas un pooler Supabase (…pooler.supabase.com) : recopie l'adresse depuis Connect.")
+    if "pooler.supabase.com" in hote and user and "." not in user:
+        conseils.append("Avec le pooler, l'utilisateur doit être postgres.<ref-du-projet>, pas postgres seul.")
+    if "pooler.supabase.com" in hote and port not in (6543, 5432):
+        conseils.append("Port attendu : 6543 (Transaction pooler).")
+    if "password authentication failed" in erreur:
+        conseils.append("Mot de passe refusé : recopie-le, ou réinitialise-le (Project Settings → Database).")
+    if "Tenant or user not found" in erreur:
+        conseils.append("Utilisateur ou région inconnus : recopie l'adresse complète depuis Connect.")
+    if "timeout" in erreur.lower():
+        conseils.append("Délai dépassé : le projet Supabase est peut-être en pause (Restore dans le dashboard).")
+    if not conseils:
+        conseils.append("Recopie l'adresse « Transaction pooler » depuis le bouton Connect de Supabase ; "
+                        "vérifie que le projet n'est pas en pause.")
+    resume = f"hôte « {hote or '?'} », port {port or '?'}, utilisateur « {user or '?'} »"
+    return "Connexion à Supabase impossible (" + resume + ").\n- " + "\n- ".join(conseils)
 
 
 def _creer_schema(con: _Con) -> None:

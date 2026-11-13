@@ -12,6 +12,7 @@ from metiers import METIERS, NOMS
 
 st.set_page_config(page_title="Prospection — Scanner", page_icon="🔎", layout="wide")
 auth.exiger_mot_de_passe()
+auth.verifier_base()
 st.title("Scanner de prospects")
 st.caption("Commerces bien notés, sans vrai site, triés par priorité. Rien n'est rescanné avant "
            f"{config.RESCAN_DAYS} jours sans le demander.")
