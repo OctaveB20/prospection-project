@@ -43,6 +43,12 @@ with st.sidebar:
     lancer = st.button("Lancer le scan", type="primary", disabled=not (metiers and zone.strip()))
 
     st.divider()
+    etat = db.etat_base()
+    st.caption(f"Base : {etat['ou']} · {etat['prospects']} prospect(s), {etat['scans']} scan(s) enregistrés")
+    if not config.DATABASE_URL and config.EN_LIGNE:
+        st.warning("Base locale temporaire : elle sera effacée au prochain redémarrage.")
+
+    st.divider()
     st.header("Filtres")
     st.caption("Appliqués aux résultats, sans nouvelle requête.")
     presence = st.multiselect("Présence en ligne", sc.TYPES, default=[sc.AUCUN, sc.RESEAU, sc.PLATEFORME, sc.INACCESSIBLE, sc.FAIBLE])
@@ -54,7 +60,7 @@ if "resultats" not in st.session_state:
 
 # ---------- Scan ----------
 if lancer:
-    tous = []
+    tous, erreur = [], False
     with st.status("Scan en cours…", expanded=True) as statut:
         try:
             vus = {}
@@ -65,18 +71,28 @@ if lancer:
                     if l["place_id"] not in vus or (l.get("score") or 0) > (vus[l["place_id"]].get("score") or 0):
                         vus[l["place_id"]] = {**l, "metier": m}
             tous = list(vus.values())
+            etat = db.etat_base()
+            st.session_state.message_scan = (f"{len(tous)} lieux analysés et enregistrés dans {etat['ou']} "
+                                             f"({etat['prospects']} prospect(s) au total).")
             statut.update(label=f"Terminé : {len(tous)} lieux analysés", state="complete")
         except places.QuotaDepasse as e:
+            erreur = True
             statut.update(label="Quota atteint", state="error")
             st.error(str(e))
         except Exception as e:  # clé absente, réseau, erreur Google
+            erreur = True
             statut.update(label="Erreur", state="error")
             st.error(f"Erreur : {e}")
     if tous:
         st.session_state.resultats = tous
         st.rerun()
+    elif not erreur:
+        st.warning("Google n'a renvoyé aucun lieu pour cette recherche : essaie une zone plus large ou un autre métier.")
 
 # ---------- Résultats ----------
+if st.session_state.get("message_scan"):
+    st.success(st.session_state.pop("message_scan"))
+
 lieux = st.session_state.resultats
 if not lieux:
     st.info("Choisis des métiers et une zone, puis lance le scan.")

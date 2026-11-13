@@ -308,6 +308,23 @@ def enregistrer_prospects(lignes: list[dict], metier: str, zone: str) -> int:
     return len(lignes)
 
 
+def etat_base() -> dict:
+    """Où l'app écrit et combien de lignes la base contient (affiché dans la barre latérale)."""
+    if config.DATABASE_URL:
+        from urllib.parse import urlsplit
+
+        try:
+            u = urlsplit(config.DATABASE_URL)
+            ou = f"Supabase · {u.username or '?'} @ {u.hostname or '?'}"
+        except ValueError:
+            ou = "Supabase · adresse illisible"
+    else:
+        ou = f"SQLite local · {config.DB_PATH.name}"
+    with connexion() as con:
+        compte = {t: con.execute(f"SELECT COUNT(*) AS n FROM {t}").fetchone()["n"] for t in ("prospects", "scans")}
+    return {"ou": ou, **compte}
+
+
 def lire_prospects() -> list[dict]:
     with connexion() as con:
         return con.execute("SELECT * FROM prospects ORDER BY score DESC").fetchall()
