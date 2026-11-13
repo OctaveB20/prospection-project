@@ -38,7 +38,32 @@ CACHE_DAYS = _int("CACHE_DAYS", 30)
 DB_PATH = Path(os.getenv("PROSPECTION_DB", RACINE / "data" / "prospection.db"))
 # Cloud : chaîne de connexion Postgres de Supabase (Transaction pooler, port 6543).
 # Vide = SQLite local (DB_PATH).
-DATABASE_URL = os.getenv("DATABASE_URL", "").strip().strip("\"'").strip()
+def normaliser_url(url: str, mot_de_passe: str = "") -> str:
+    """Répare les erreurs de copie courantes dans l'adresse Supabase.
+
+    - guillemets ou espaces en trop autour de l'adresse ;
+    - crochets laissés autour du mot de passe ([MonMotDePasse]) ;
+    - caractères spéciaux du mot de passe (@ : / ? # % [ ]) : encodés automatiquement ;
+    - DATABASE_PASSWORD (optionnel) remplace le mot de passe de l'adresse.
+    """
+    from urllib.parse import quote, unquote
+
+    url = url.strip().strip("\"'").strip()
+    if "://" not in url or "@" not in url:
+        return url
+    schema, reste = url.split("://", 1)
+    identifiants, hote = reste.rsplit("@", 1)  # le dernier @ sépare toujours le mot de passe de l'hôte
+    if ":" not in identifiants:
+        return url
+    user, mdp = identifiants.split(":", 1)
+    if mot_de_passe:
+        mdp = mot_de_passe
+    elif mdp.startswith("[") and mdp.endswith("]") and mdp.upper() != "[YOUR-PASSWORD]":
+        mdp = mdp[1:-1]
+    return f"{schema}://{user}:{quote(unquote(mdp), safe='')}@{hote}"
+
+
+DATABASE_URL = normaliser_url(os.getenv("DATABASE_URL", ""), os.getenv("DATABASE_PASSWORD", "").strip())
 # Mot de passe d'accès à l'app (obligatoire dès que l'app est en ligne).
 APP_PASSWORD = os.getenv("APP_PASSWORD", "")
 # Streamlit Community Cloud exécute l'app depuis /mount/src/<dépôt>.

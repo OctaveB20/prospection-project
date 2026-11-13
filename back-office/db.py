@@ -113,8 +113,10 @@ def diagnostic_url(url: str, erreur: str = "") -> str:
         conseils.append("Des guillemets en trop entourent l'adresse : dans les Secrets, une seule paire.")
     if not url.startswith(("postgresql://", "postgres://")):
         conseils.append("L'adresse doit commencer par postgresql://")
-    if "[" in url or "]" in url or "YOUR-PASSWORD" in url.upper():
-        conseils.append("[YOUR-PASSWORD] n'a pas été remplacé, ou les crochets [ ] sont restés autour du mot de passe.")
+    if "YOUR-PASSWORD" in url.upper().replace("%5B", "[").replace("%5D", "]"):
+        conseils.append("[YOUR-PASSWORD] n'a pas été remplacé par ton mot de passe.")
+    elif "[" in url or "]" in url:
+        conseils.append("Des crochets [ ] restent dans l'adresse en dehors du mot de passe.")
     if url.count("@") > 1:
         conseils.append("Le mot de passe contient un @ : change-le pour lettres + chiffres uniquement.")
     if hote.startswith("db.") and hote.endswith(".supabase.co"):
@@ -137,7 +139,20 @@ def diagnostic_url(url: str, erreur: str = "") -> str:
         conseils.append("Recopie l'adresse « Transaction pooler » depuis le bouton Connect de Supabase ; "
                         "vérifie que le projet n'est pas en pause.")
     resume = f"hôte « {hote or '?'} », port {port or '?'}, utilisateur « {user or '?'} »"
-    return "Connexion à Supabase impossible (" + resume + ").\n- " + "\n- ".join(conseils)
+    return ("Connexion à Supabase impossible (" + resume + ").\n\nAdresse lue (mot de passe masqué) : `"
+            + masquer_url(url) + "`\n- " + "\n- ".join(conseils))
+
+
+def masquer_url(url: str) -> str:
+    """postgresql://user:••••@hôte:port/base — pour vérifier la forme sans exposer le mot de passe."""
+    if "://" not in url:
+        return url[:12] + "…" if len(url) > 12 else "(vide)" if not url else "…"
+    schema, reste = url.split("://", 1)
+    if "@" not in reste:
+        return f"{schema}://(identifiants manquants : pas de @)"
+    identifiants, hote = reste.rsplit("@", 1)
+    user = identifiants.split(":", 1)[0]
+    return f"{schema}://{user}:••••••@{hote}"
 
 
 def _creer_schema(con: _Con) -> None:
@@ -151,8 +166,12 @@ def _creer_schema(con: _Con) -> None:
     if con.postgres:
         # Supabase expose le schéma public via son API REST : RLS sans politique = API fermée.
         # L'app se connecte avec le rôle postgres, qui n'est pas concerné par RLS.
-        for t in TABLES:
-            con.execute(f"ALTER TABLE {t} ENABLE ROW LEVEL SECURITY")
+        sans_rls = con.execute(
+            "SELECT relname FROM pg_class WHERE relnamespace = 'public'::regnamespace "
+            "AND relkind = 'r' AND NOT relrowsecurity AND relname = ANY(?)", (TABLES,)
+        ).fetchall()
+        for r in sans_rls:  # seulement si besoin : ALTER TABLE exige d'être propriétaire de la table
+            con.execute(f"ALTER TABLE {r['relname']} ENABLE ROW LEVEL SECURITY")
     _schema_pret.add(cle)
 
 

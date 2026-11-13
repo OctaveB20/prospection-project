@@ -153,3 +153,28 @@ def test_diagnostic_sans_fuite_du_mot_de_passe(url, indice):
     msg = db.diagnostic_url(url, "")
     assert indice in msg
     assert "motdepasse42" not in msg and "passe42" not in msg
+
+
+@pytest.mark.parametrize("brute, mdp_attendu", [
+    ("postgresql://postgres.abc:[Simple123]@aws-0-eu-west-3.pooler.supabase.com:6543/postgres", "Simple123"),
+    ("postgresql://postgres.abc:p@ss/w#rd?%[x]@aws-0-eu-west-3.pooler.supabase.com:6543/postgres", "p@ss/w#rd?%[x]"),
+    ('"postgresql://postgres.abc:Simple123@aws-0-eu-west-3.pooler.supabase.com:6543/postgres" ', "Simple123"),
+    ("postgresql://postgres.abc:d%C3%A9j%C3%A0%40encod%C3%A9@aws-0-eu-west-3.pooler.supabase.com:6543/postgres", "déjà@encodé"),
+])
+def test_normaliser_url(brute, mdp_attendu):
+    from psycopg.conninfo import conninfo_to_dict
+
+    d = conninfo_to_dict(config.normaliser_url(brute))
+    assert d["password"] == mdp_attendu
+    assert d["host"] == "aws-0-eu-west-3.pooler.supabase.com" and d["port"] == "6543"
+    assert d["user"] == "postgres.abc" and d["dbname"] == "postgres"
+
+
+def test_normaliser_url_mot_de_passe_separe():
+    from psycopg.conninfo import conninfo_to_dict
+
+    url = "postgresql://postgres.abc:[YOUR-PASSWORD]@aws-0-eu-west-3.pooler.supabase.com:6543/postgres"
+    assert conninfo_to_dict(config.normaliser_url(url, "a@b:c/d"))["password"] == "a@b:c/d"
+    # sans mot de passe séparé, [YOUR-PASSWORD] est gardé tel quel et signalé
+    assert "pas été remplacé" in db.diagnostic_url(config.normaliser_url(url))
+    assert "YOUR" not in db.masquer_url(config.normaliser_url(url))
