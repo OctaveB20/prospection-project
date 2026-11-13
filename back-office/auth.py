@@ -26,3 +26,14 @@ def exiger_mot_de_passe() -> None:
     if ok:
         st.error("Mot de passe incorrect.")
     st.stop()
+
+
+def verifier_base() -> None:
+    """Teste la base une fois ; en cas d'échec, affiche un diagnostic lisible au lieu d'une trace."""
+    import db
+
+    try:
+        db.usage("test")
+    except db.ConnexionImpossible as e:
+        st.error(str(e))
+        st.stop()

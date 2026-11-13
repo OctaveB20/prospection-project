@@ -38,7 +38,7 @@ CACHE_DAYS = _int("CACHE_DAYS", 30)
 DB_PATH = Path(os.getenv("PROSPECTION_DB", RACINE / "data" / "prospection.db"))
 # Cloud : chaîne de connexion Postgres de Supabase (Transaction pooler, port 6543).
 # Vide = SQLite local (DB_PATH).
-DATABASE_URL = os.getenv("DATABASE_URL", "")
+DATABASE_URL = os.getenv("DATABASE_URL", "").strip().strip("\"'").strip()
 # Mot de passe d'accès à l'app (obligatoire dès que l'app est en ligne).
 APP_PASSWORD = os.getenv("APP_PASSWORD", "")
 # Streamlit Community Cloud exécute l'app depuis /mount/src/<dépôt>.

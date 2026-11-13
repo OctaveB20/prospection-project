@@ -11,6 +11,7 @@ import places
 
 st.set_page_config(page_title="Prospection — CRM", page_icon="📋", layout="wide")
 auth.exiger_mot_de_passe()
+auth.verifier_base()
 st.title("CRM")
 
 prospects = db.lire_prospects()
