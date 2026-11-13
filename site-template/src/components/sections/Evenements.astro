@@ -1,0 +1,122 @@
+---
+// Événements à venir (dégustations, ateliers, soirées). Les événements passés disparaissent :
+// au build, et dans le navigateur (le site n'est pas forcément reconstruit chaque jour).
+// L'inscription renvoie vers une billetterie existante, le téléphone ou le formulaire de devis :
+// on ne recode jamais de système de réservation.
+import { config, url, telLien, adresseComplete } from '../../lib/config';
+import type { Evenement } from '../../lib/types';
+
+const s = config.sections.evenements!;
+const aujourdhui = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Paris' }).format(new Date());
+const aVenir = [...s.liste].filter((e) => e.date >= aujourdhui).sort((a, b) => a.date.localeCompare(b.date));
+
+const jour = (d: string, opts: Intl.DateTimeFormatOptions) =>
+  new Intl.DateTimeFormat('fr-FR', { timeZone: 'UTC', ...opts }).format(new Date(`${d}T12:00:00Z`));
+
+function lienInscription(e: Evenement): { href: string; libelle: string; externe: boolean } | null {
+  const i = e.inscription;
+  if (!i) return null;
+  if (i.type === 'lien' && i.url) return { href: i.url, libelle: i.libelle ?? 'Réserver ma place', externe: true };
+  if (i.type === 'telephone') return { href: `tel:${telLien(config.commerce.telephone)}`, libelle: i.libelle ?? 'Réserver par téléphone', externe: false };
+  if (i.type === 'devis') return { href: url('/#devis'), libelle: i.libelle ?? 'Demander une place', externe: false };
+  return null;
+}
+
+// Données structurées schema.org Event : les événements peuvent apparaître dans Google.
+const heureIso = (h?: string) => (h ? `T${h.trim().replace('h', ':').padStart(5, '0').padEnd(5, '0')}:00` : '');
+const prixNum = (p?: string) => {
+  const m = p?.replace(',', '.').match(/\d+(\.\d+)?/);
+  return m ? Number(m[0]) : undefined;
+};
+const jsonLd = aVenir.map((e) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: e.titre,
+  startDate: `${e.date}${heureIso(e.heure)}`,
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  eventStatus: 'https://schema.org/EventScheduled',
+  description: e.description,
+  location: { '@type': 'Place', name: config.commerce.nom, address: adresseComplete() },
+  organizer: { '@type': 'Organization', name: config.commerce.nom },
+  ...(prixNum(e.prix) !== undefined && {
+    offers: { '@type': 'Offer', price: prixNum(e.prix), priceCurrency: 'EUR', availability: 'https://schema.org/InStock' },
+  }),
+}));
+const messageAucun = s.aucun ?? 'Pas d’événement prévu pour le moment : suivez-nous pour ne pas manquer les prochains.';
+---
+<section id="evenements" class="section">
+  <div class="conteneur">
+    <h2>{s.titre ?? 'Événements à venir'}</h2>
+    {s.intro && <p class="section__intro">{s.intro}</p>}
+    <ul class="evenements" data-aucun={messageAucun}>
+      {aVenir.map((e) => {
+        const lien = lienInscription(e);
+        return (
+          <li class="evenement carte" data-date={e.date}>
+            <div class="evenement__date" aria-hidden="true">
+              <span class="evenement__jour">{jour(e.date, { day: 'numeric' })}</span>
+              <span class="evenement__mois">{jour(e.date, { month: 'short' })}</span>
+            </div>
+            <div class="evenement__corps">
+              <h3>{e.titre}</h3>
+              <p class="evenement__infos">
+                <time datetime={e.date}>{jour(e.date, { weekday: 'long', day: 'numeric', month: 'long' })}</time>
+                {e.heure && <> · {e.heure}</>}
+                {e.duree && <> · {e.duree}</>}
+              </p>
+              {e.description && <p>{e.description}</p>}
+              <p class="evenement__pied">
+                {e.prix && <span class="evenement__prix">{e.prix}</span>}
+                {e.places && <span class="evenement__places">{e.places}</span>}
+                {lien && (
+                  <a class="bouton" href={lien.href} {...(lien.externe ? { target: '_blank', rel: 'noopener' } : {})}>{lien.libelle}</a>
+                )}
+              </p>
+            </div>
+          </li>
+        );
+      })}
+    </ul>
+    <p class="evenements__aucun" hidden={aVenir.length > 0}>{messageAucun}</p>
+  </div>
+  {jsonLd.length > 0 && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+</section>
+
+<script is:inline>
+  // Masque les événements passés depuis le dernier build (heure de Paris).
+  (function () {
+    var auj = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Paris' }).format(new Date());
+    var items = document.querySelectorAll('#evenements .evenement');
+    var restants = 0;
+    items.forEach(function (li) {
+      if (li.getAttribute('data-date') < auj) li.hidden = true; else restants++;
+    });
+    if (items.length && !restants) document.querySelector('#evenements .evenements__aucun').hidden = false;
+  })();
+</script>
+
+<style>
+  .evenements { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+  .evenement { display: grid; grid-template-columns: 84px 1fr; gap: 20px; align-items: start; }
+  .evenement[hidden] { display: none; }
+  .evenement__date {
+    display: grid; place-items: center; align-content: center;
+    background: var(--principale); color: #fff; border-radius: 14px; aspect-ratio: 1;
+  }
+  .evenement__jour { font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif; font-size: 2rem; line-height: 1; }
+  .evenement__mois { text-transform: uppercase; letter-spacing: .08em; font-size: .8rem; }
+  .evenement h3 { margin-bottom: .2em; }
+  .evenement__infos { color: var(--accent); font-weight: 600; margin-bottom: .5em; }
+  .evenement__infos time::first-letter { text-transform: uppercase; }
+  .evenement__corps > p:not(.evenement__infos) { margin-bottom: .6em; }
+  .evenement__pied { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin: 0; }
+  .evenement__prix { font-weight: 700; color: var(--principale); font-size: 1.1rem; }
+  .evenement__places { font-size: .9rem; color: color-mix(in srgb, var(--texte) 70%, transparent); }
+  .evenement .bouton { margin-left: auto; padding: .6em 1.2em; }
+  .evenements__aucun { color: color-mix(in srgb, var(--texte) 75%, transparent); }
+  @media (max-width: 560px) {
+    .evenement { grid-template-columns: 64px 1fr; gap: 14px; }
+    .evenement__jour { font-size: 1.5rem; }
+    .evenement .bouton { margin-left: 0; }
+  }
+</style>

@@ -7,7 +7,8 @@ const estDemo = cfg.demo?.actif === true;
 
 export default defineConfig({
   // Production : domaine du client. Démo : demo.<domaine>/<slug>
-  site: estDemo ? cfg.demo.urlBase : cfg.site?.url,
+  // DEMO_URL_BASE (variable Cloudflare) remplace demo.urlBase, ex. https://mes-demos.pages.dev
+  site: estDemo ? (process.env.DEMO_URL_BASE || cfg.demo.urlBase) : cfg.site?.url,
   base: estDemo ? `/${cfg.slug}` : '/',
   // En démo, chaque commerce sort dans dist/<slug>/ : plusieurs démos peuvent
   // être déployées ensemble sur demo.<domaine>.

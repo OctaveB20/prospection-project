@@ -42,7 +42,7 @@ Sur Streamlit Cloud le disque est effacé à chaque redémarrage : la base doit 
 
 1. **Supabase** : crée un **nouveau** projet (pas celui de l'ancien prototype), note le mot de passe de la base.
    Puis Project Settings → Database → Connection string → **Transaction pooler** (port 6543) : copie l'URI et remplace `[YOUR-PASSWORD]`.
-   Rien à créer à la main : les tables sont créées au premier lancement, avec RLS activé (l'API REST publique de Supabase n'y a pas accès).
+   Rien à créer à la main : les tables sont créées au premier lancement, avec RLS activé (l'API REST publique de Supabase n'y a pas accès). Le même schéma est dans `sql/schema.sql` si tu préfères le passer dans le SQL Editor.
 2. **Streamlit Cloud** : New app → dépôt `prospection-project`, branche `main`, fichier `back-office/Scanner.py`.
 3. **Settings → Secrets** :
    ```toml

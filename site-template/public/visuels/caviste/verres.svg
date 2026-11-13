@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Verres de vin">
+<defs><g id="v"><path d="M-62 -150h124c4 70-14 124-62 136-48-12-66-66-62-136z" fill="#fff" fill-opacity=".55" stroke="#8a6a4a" stroke-width="4"/><rect x="-4" y="-14" width="8" height="140" fill="#8a6a4a"/><ellipse cy="128" rx="56" ry="10" fill="#8a6a4a"/></g></defs>
+<rect width="800" height="600" fill="#f4ece3"/>
+<circle cx="160" cy="130" r="150" fill="#ecdfd0"/>
+<rect y="500" width="800" height="100" fill="#dcc8b0"/>
+<use href="#v" transform="translate(290 360)"/>
+<path d="M232 280h116c-2 40-20 66-58 74-38-8-56-34-58-74z" fill="#6b1e2e"/>
+<use href="#v" transform="translate(510 360)"/>
+<path d="M452 270h116c-2 46-22 74-58 84-36-10-56-38-58-84z" fill="#e9d18a"/>
+<circle cx="400" cy="210" r="12" fill="#b08a3e"/><circle cx="420" cy="180" r="7" fill="#b08a3e"/><circle cx="388" cy="168" r="5" fill="#b08a3e"/>
+</svg>

@@ -33,6 +33,7 @@ Aucune clé API n'est nécessaire pour construire un site : toutes les données 
 | `reservation` | Bouton Planity / Zenchef / TheFork (intégration, pas de recodage) | **Plus** |
 | `devis` | Formulaire de demande de devis | **Plus** |
 | `acces` | Carte OpenStreetMap (sans cookies) + lien itinéraire | **Plus** |
+| `evenements` | Événements à venir (dégustations, ateliers, soirées) : les dates passées disparaissent seules, données schema.org Event pour Google ; inscription par billetterie externe, téléphone ou devis | à placer dans l'offre (voir offre-et-prix.md) |
 | *(à faire)* version anglaise | Pages en anglais + `hreflang` | **Plus** |
 
 Offre : Base 350 €, Plus 450 €, maintenance 20 €/mois (`docs/offre-et-prix.md`). **Le build échoue si une config `base` active une section réservée à Plus.**
@@ -45,6 +46,8 @@ Offre : Base 350 €, Plus 450 €, maintenance 20 €/mois (`docs/offre-et-prix
 - **Sans cookies** : pas de Google Maps intégré, pas de Google Fonts, analytics Plausible/Umami seulement en production.
 - **Mentions légales** : page `/mentions-legales` générée depuis la config (éditeur, SIRET, hébergeur).
 - **Formulaires** : désactivés en démo (message explicatif), branchés sur `formulaire.action` en production.
+
+**Mentions obligatoires par métier** : `commerce.avertissements` s'affiche en pied de page. Pour un caviste (vente d'alcool, loi Évin), le build échoue sans « L'abus d'alcool est dangereux pour la santé, à consommer avec modération. » ; ajouter aussi « La vente d'alcool aux mineurs est interdite. »
 
 ## 5. SEO local (inclus dans toutes les formules)
 - Généré par le template : `<title>` et description « métier + quartier » (`seo` dans la config), données structurées schema.org, `sitemap.xml`, `robots.txt` (démo : `Disallow: /`).
@@ -72,3 +75,25 @@ SITE_CONFIG=configs/fleuriste-atelier-petale.json npm run dev     # aperçu loca
 SITE_CONFIG=configs/fleuriste-atelier-petale.json npm run build   # sortie dans dist/<slug>/ (démo) ou dist/ (production)
 npm run check-config -- configs/fleuriste-atelier-petale.json    # valide une config sans builder
 ```
+
+## 9. Mettre les démos en ligne (Cloudflare Pages, un seul projet pour toutes)
+```bash
+cd site-template
+npm run build:demos            # toutes les configs avec "demo": {"actif": true} -> dist/<slug>/
+npm run build:demos -- caviste # seulement les configs dont le nom contient « caviste »
+```
+
+Réglages du projet Cloudflare Pages (Workers & Pages → Create → Pages → Import an existing Git repository) :
+
+| Réglage | Valeur |
+|---|---|
+| Production branch | `main` |
+| Root directory | `site-template` |
+| Build command | `npm run build:demos` |
+| Build output directory | `dist` |
+| Variables | `NODE_VERSION` = `22`, `DEMO_URL_BASE` = `https://<projet>.pages.dev` (puis `https://demo.<domaine>`) |
+
+- Chaque démo est sur `https://<projet>.pages.dev/<slug>/`. Ajouter une démo = ajouter un fichier dans `configs/` + `git push` (1 push = 1 build, quel que soit le nombre de démos).
+- La racine affiche une page neutre qui ne liste pas les démos ; `robots.txt`, la balise meta et l'en-tête `X-Robots-Tag` (fichier `_headers`) empêchent l'indexation.
+- Les sites clients en production ne passent pas par ce script : un projet Cloudflare par client, `npm run build` avec `SITE_CONFIG=configs/<client>.json`, et des *Build watch paths* limités à sa config et à `src/` pour ne pas reconstruire tous les sites à chaque push.
+

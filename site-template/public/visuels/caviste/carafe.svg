@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Carafe à décanter">
+<rect width="800" height="600" fill="#f4ece3"/>
+<circle cx="600" cy="160" r="140" fill="#ecdfd0"/>
+<rect y="500" width="800" height="100" fill="#dcc8b0"/>
+<path d="M370 100h60v120c90 40 140 120 140 190 0 60-50 96-170 96s-170-36-170-96c0-70 50-150 140-190z" fill="#fff" fill-opacity=".5" stroke="#8a6a4a" stroke-width="5"/>
+<path d="M245 400c20-40 300-40 310 0 0 50-50 80-155 80s-160-30-155-80z" fill="#6b1e2e"/>
+<rect x="362" y="86" width="76" height="20" rx="6" fill="#8a6a4a"/>
+<g transform="translate(640 500)"><path d="M-40 -120h80c2 44-10 76-40 84-30-8-42-40-40-84z" fill="#fff" fill-opacity=".55" stroke="#8a6a4a" stroke-width="3"/><path d="M-36 -90h72c-2 26-14 46-36 50-22-4-34-24-36-50z" fill="#6b1e2e"/><rect x="-3" y="-36" width="6" height="34" fill="#8a6a4a"/></g>
+</svg>
