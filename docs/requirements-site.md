@@ -75,3 +75,25 @@ SITE_CONFIG=configs/fleuriste-atelier-petale.json npm run dev     # aperçu loca
 SITE_CONFIG=configs/fleuriste-atelier-petale.json npm run build   # sortie dans dist/<slug>/ (démo) ou dist/ (production)
 npm run check-config -- configs/fleuriste-atelier-petale.json    # valide une config sans builder
 ```
+
+## 9. Mettre les démos en ligne (Cloudflare Pages, un seul projet pour toutes)
+```bash
+cd site-template
+npm run build:demos            # toutes les configs avec "demo": {"actif": true} -> dist/<slug>/
+npm run build:demos -- caviste # seulement les configs dont le nom contient « caviste »
+```
+
+Réglages du projet Cloudflare Pages (Workers & Pages → Create → Pages → Import an existing Git repository) :
+
+| Réglage | Valeur |
+|---|---|
+| Production branch | `main` |
+| Root directory | `site-template` |
+| Build command | `npm run build:demos` |
+| Build output directory | `dist` |
+| Variables | `NODE_VERSION` = `22`, `DEMO_URL_BASE` = `https://<projet>.pages.dev` (puis `https://demo.<domaine>`) |
+
+- Chaque démo est sur `https://<projet>.pages.dev/<slug>/`. Ajouter une démo = ajouter un fichier dans `configs/` + `git push` (1 push = 1 build, quel que soit le nombre de démos).
+- La racine affiche une page neutre qui ne liste pas les démos ; `robots.txt`, la balise meta et l'en-tête `X-Robots-Tag` (fichier `_headers`) empêchent l'indexation.
+- Les sites clients en production ne passent pas par ce script : un projet Cloudflare par client, `npm run build` avec `SITE_CONFIG=configs/<client>.json`, et des *Build watch paths* limités à sa config et à `src/` pour ne pas reconstruire tous les sites à chaque push.
+
