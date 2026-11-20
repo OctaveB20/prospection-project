@@ -52,7 +52,7 @@ const messageAucun = s.aucun ?? 'Pas d’événement prévu pour le moment : sui
       {aVenir.map((e) => {
         const lien = lienInscription(e);
         return (
-          <li class="evenement carte" data-date={e.date}>
+          <li class="evenement carte carte--anime" data-date={e.date}>
             <div class="evenement__date" aria-hidden="true">
               <span class="evenement__jour">{jour(e.date, { day: 'numeric' })}</span>
               <span class="evenement__mois">{jour(e.date, { month: 'short' })}</span>
@@ -102,11 +102,12 @@ const messageAucun = s.aucun ?? 'Pas d’événement prévu pour le moment : sui
   .evenement__date {
     display: grid; place-items: center; align-content: center;
     background: var(--principale); color: #fff; border-radius: 14px; aspect-ratio: 1;
+    box-shadow: 0 8px 18px color-mix(in srgb, var(--principale) 28%, transparent);
   }
   .evenement__jour { font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif; font-size: 2rem; line-height: 1; }
   .evenement__mois { text-transform: uppercase; letter-spacing: .08em; font-size: .8rem; }
   .evenement h3 { margin-bottom: .2em; }
-  .evenement__infos { color: var(--accent); font-weight: 600; margin-bottom: .5em; }
+  .evenement__infos { color: var(--accent-texte); font-weight: 600; margin-bottom: .5em; }
   .evenement__infos time::first-letter { text-transform: uppercase; }
   .evenement__corps > p:not(.evenement__infos) { margin-bottom: .6em; }
   .evenement__pied { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin: 0; }
@@ -117,6 +118,7 @@ const messageAucun = s.aucun ?? 'Pas d’événement prévu pour le moment : sui
   @media (max-width: 560px) {
     .evenement { grid-template-columns: 64px 1fr; gap: 14px; }
     .evenement__jour { font-size: 1.5rem; }
-    .evenement .bouton { margin-left: 0; }
+    .evenement .bouton { margin-left: 0; width: 100%; }
+    .evenement__pied { gap: 10px 16px; }
   }
 </style>

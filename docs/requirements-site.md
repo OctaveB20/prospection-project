@@ -55,7 +55,10 @@ Offre : Base 350 €, Plus 450 €, maintenance 20 €/mois (`docs/offre-et-prix
 
 ## 6. Qualité attendue
 - PageSpeed mobile ≥ 90 (site statique, pas de framework JS côté client, images SVG/optimisées).
-- Lisible sur mobile dès 360 px, barre d'action fixe en bas (Appeler / Itinéraire).
+- Lisible sur mobile dès 320 px, sans défilement horizontal ; barre d'action fixe en bas (Appeler / Itinéraire) qui apparaît une fois l'accueil dépassé.
+- Tactile : cibles d'au moins 44 px (boutons 48 px), champs de formulaire en 16 px (pas de zoom iPhone), menu mobile ☰, carrousels à faire glisser (sélection, galerie, avis), visionneuse photo avec balayage.
+- Infos vivantes calculées dans le navigateur à l'heure de Paris : « Ouvert · ferme à … » / « Fermé · ouvre … », prochain événement.
+- Animations douces désactivées si l'utilisateur a demandé « réduire les animations » ; tout reste lisible sans JavaScript.
 - Accessibilité de base : contrastes suffisants, textes alternatifs, libellés de formulaire, navigation clavier.
 - Données structurées schema.org (`Florist`, `Restaurant`, `HairSalon`… selon `metier`) pour le SEO local.
 

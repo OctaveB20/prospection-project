@@ -7,42 +7,110 @@ const cible = s.boutonCible ? `#${s.boutonCible}`
   : config.sections.reservation?.actif ? '#reservation'
   : '#contact';
 const avis = config.sections.avis;
+const horaires = config.sections.horaires;
+
+// Prochain événement (si la section est active) : calculé au build, remis à jour dans le navigateur.
+const ev = config.sections.evenements;
+const listeEv = ev?.actif ? [...ev.liste].sort((a, b) => a.date.localeCompare(b.date)) : [];
+const etiquetteEv = ev?.etiquetteProchain ?? 'Prochain rendez-vous';
+const donneesEv = JSON.stringify(listeEv.map((e) => ({ d: e.date, h: e.heure ?? '', t: e.titre })));
 ---
 <section id="accueil" class="accueil">
   <div class="conteneur accueil__grille">
-    <div>
+    <div class="accueil__texte">
       {c.slogan && <span class="surtitre">{c.slogan}</span>}
       <h1>{c.nom}</h1>
       {s.accroche && <p class="accueil__accroche">{s.accroche}</p>}
+
+      {(horaires?.actif || listeEv.length > 0) && (
+        <div class="accueil__pastilles">
+          {horaires?.actif && (
+            <a class="pastille" href={url('/#horaires')} data-ouverture hidden>
+              <span class="pastille__point"></span><span data-ouverture-texte></span>
+            </a>
+          )}
+          {listeEv.length > 0 && (
+            <a class="pastille pastille--evenement" href={url('/#evenements')} data-prochain={donneesEv} data-etiquette={etiquetteEv} hidden>
+              <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span data-prochain-texte></span>
+            </a>
+          )}
+        </div>
+      )}
+
       <div class="accueil__boutons">
         <a class="bouton" href={url(`/${cible}`)}>{s.boutonPrincipal ?? 'Nous contacter'}</a>
         <a class="bouton bouton--secondaire" href={`tel:${telLien(c.telephone)}`}>Appeler</a>
         <a class="bouton bouton--secondaire" href={lienItineraire()} target="_blank" rel="noopener">Itinéraire</a>
       </div>
       {avis?.actif && (
-        <p class="accueil__note">
+        <a class="accueil__note" href={url('/#avis')}>
           <span class="etoiles" aria-hidden="true">★★★★★</span>
-          <strong>{avis.note.toLocaleString('fr-FR')}/5</strong> · {avis.nombre} avis Google
-        </p>
+          <strong>{avis.note.toLocaleString('fr-FR')}/5</strong>
+          <span>· {avis.nombre} avis Google</span>
+        </a>
       )}
     </div>
     {s.image && (
-      <div class="visuel accueil__visuel">
-        <img src={url(s.image.src)} alt={s.image.alt} width="800" height="600" fetchpriority="high" />
+      <div class="accueil__visuel">
+        <div class="visuel">
+          <img src={url(s.image.src)} alt={s.image.alt} width="800" height="600" fetchpriority="high" />
+        </div>
       </div>
     )}
   </div>
 </section>
 
+<script is:inline>
+  // Pastille « prochain événement » : le premier à venir, à l'heure de Paris.
+  (function () {
+    var el = document.querySelector('[data-prochain]');
+    if (!el) return;
+    var auj = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Paris' }).format(new Date());
+    var liste = JSON.parse(el.getAttribute('data-prochain'));
+    var p = liste.filter(function (e) { return e.d >= auj; })[0];
+    if (!p) return;
+    var jour = p.d === auj ? "aujourd'hui"
+      : new Intl.DateTimeFormat('fr-FR', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' })
+          .format(new Date(p.d + 'T12:00:00Z'));
+    el.querySelector('[data-prochain-texte]').textContent =
+      el.getAttribute('data-etiquette') + ' : ' + jour + (p.h ? ' · ' + p.h : '');
+    el.title = p.t;
+    el.hidden = false;
+  })();
+</script>
+
 <style>
-  .accueil { padding: clamp(40px, 8vw, 96px) 0; }
-  .accueil__grille { display: grid; gap: 40px; align-items: center; grid-template-columns: 1.05fr 1fr; }
-  .accueil__accroche { font-size: 1.2rem; max-width: 34ch; }
-  .accueil__boutons { display: flex; flex-wrap: wrap; gap: 12px; margin: 28px 0 20px; }
-  .accueil__note { font-size: .95rem; }
-  .accueil__visuel { aspect-ratio: 4 / 3; box-shadow: 0 20px 50px rgba(0,0,0,.08); }
+  .accueil { padding: clamp(36px, 7vw, 96px) 0 clamp(48px, 8vw, 104px); overflow: hidden; }
+  .accueil__grille { display: grid; gap: clamp(28px, 5vw, 56px); align-items: center; grid-template-columns: 1.05fr 1fr; }
+  .accueil__accroche { font-size: clamp(1.1rem, 2.2vw, 1.25rem); max-width: 34ch; color: color-mix(in srgb, var(--texte) 85%, transparent); }
+  .accueil__pastilles { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+  .accueil__pastilles .pastille[hidden] { display: none; }
+  .pastille--evenement { color: var(--principale); }
+  .accueil__boutons { display: flex; flex-wrap: wrap; gap: 12px; margin: 26px 0 20px; }
+  .accueil__note {
+    display: inline-flex; align-items: center; gap: .45em; min-height: 44px;
+    font-size: .95rem; color: var(--texte); text-decoration: none;
+  }
+  .accueil__note span:last-child { color: var(--texte-doux); }
+
+  .accueil__visuel { position: relative; }
+  .accueil__visuel::before {
+    content: ''; position: absolute; inset: 8% -6% -6% 8%;
+    border-radius: calc(var(--rayon) + 6px);
+    background: color-mix(in srgb, var(--accent) 22%, var(--clair));
+    z-index: -1;
+  }
+  .accueil__visuel .visuel { aspect-ratio: 4 / 3; box-shadow: var(--ombre-forte); }
+
   @media (max-width: 860px) {
     .accueil__grille { grid-template-columns: 1fr; }
-    .accueil__visuel { order: -1; }
+    /* Mobile : le nom, les pastilles et les boutons d'abord, l'image ensuite */
+    .accueil__visuel { margin-right: 4%; }
+    .accueil__visuel::before { inset: 10% -4% -5% 6%; }
+    .accueil__visuel .visuel { aspect-ratio: 16 / 10; }
+  }
+  @media (max-width: 760px) {
+    .accueil__boutons { display: grid; grid-template-columns: 1fr 1fr; }
+    .accueil__boutons .bouton:first-child { grid-column: 1 / -1; }
   }
 </style>

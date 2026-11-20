@@ -14,7 +14,7 @@ const etoiles = (n: number) => '★'.repeat(Math.round(n)) + '☆'.repeat(5 - Ma
         {s.nombre} avis sur Google
       </span>
     </p>
-    <div class="grille grille--3">
+    <div class="grille grille--3 defilant">
       {s.liste.map((a) => (
         <blockquote class="carte">
           <p class="etoiles" aria-label={`${a.note} sur 5`}>{etoiles(a.note)}</p>

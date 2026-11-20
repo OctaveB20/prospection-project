@@ -1,0 +1,47 @@
+---
+// Petites interactions communes à tous les sites, en JavaScript léger (aucune librairie) :
+// apparition douce des blocs au défilement, ombre de l'en-tête, barre d'action mobile.
+---
+<script is:inline>
+  (function () {
+    var calme = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // 1. Apparition douce : titres, cartes et visuels des sections (pas l'en-tête du site).
+    var cibles = document.querySelectorAll(
+      'main .section h2, main .section__intro, main .carte, main .visuel, main .evenement, main .ligne-tarif, main figure'
+    );
+    if (!calme && 'IntersectionObserver' in window) {
+      var vu = new IntersectionObserver(function (entrees) {
+        entrees.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('visible'); vu.unobserve(e.target); }
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+      cibles.forEach(function (el) {
+        if (el.closest('[data-apparait]') && el.closest('[data-apparait]') !== el) return;
+        var freres = Array.prototype.indexOf.call(el.parentElement.children, el);
+        el.setAttribute('data-apparait', '');
+        el.style.setProperty('--delai', Math.min(freres, 4) * 70 + 'ms');
+        vu.observe(el);
+      });
+    }
+
+    // 2. En-tête : légère ombre dès qu'on a défilé.
+    var entete = document.querySelector('.en-tete');
+    var majEntete = function () { if (entete) entete.classList.toggle('defile', window.scrollY > 8); };
+    window.addEventListener('scroll', majEntete, { passive: true });
+    majEntete();
+
+    // 3. Barre Appeler / Itinéraire : apparaît une fois les boutons de l'accueil sortis de l'écran.
+    var barre = document.querySelector('.barre-mobile');
+    var boutonsAccueil = document.querySelector('.accueil__boutons');
+    if (barre) {
+      if (boutonsAccueil && 'IntersectionObserver' in window) {
+        new IntersectionObserver(function (e) {
+          barre.classList.toggle('visible', !e[0].isIntersecting && e[0].boundingClientRect.top < 0);
+        }).observe(boutonsAccueil);
+      } else {
+        barre.classList.add('visible');
+      }
+    }
+  })();
+</script>
