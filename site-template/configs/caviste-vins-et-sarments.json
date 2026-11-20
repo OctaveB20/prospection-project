@@ -76,6 +76,7 @@
     "evenements": {
       "actif": true,
       "menu": "Dégustations",
+      "etiquetteProchain": "Prochaine dégustation",
       "titre": "Dégustations et événements",
       "intro": "En petit groupe (12 personnes au maximum), à la cave. Réservation conseillée.",
       "aucun": "Pas de dégustation programmée pour le moment : passez nous voir ou suivez-nous sur Instagram pour la prochaine date.",

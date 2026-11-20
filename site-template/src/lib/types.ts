@@ -79,6 +79,8 @@ export interface SiteConfig {
       liste: Evenement[];
       /** Affiché quand aucun événement n'est à venir. */
       aucun?: string;
+      /** Texte de la pastille de l'accueil, ex. « Prochaine dégustation ». */
+      etiquetteProchain?: string;
     };
     acces?: Section & { indications?: string[] };
     contact?: Section;

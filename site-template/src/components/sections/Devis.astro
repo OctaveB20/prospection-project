@@ -55,17 +55,34 @@ const merci = s.merci ?? 'Merci, nous revenons vers vous rapidement.';
 
 <style>
   .formulaire { display: grid; gap: 16px; }
-  .formulaire__ligne { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
-  label { display: grid; gap: 6px; font-weight: 600; font-size: .95rem; }
+  .formulaire { min-width: 0; }
+  .formulaire__ligne { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); }
+  label { display: grid; gap: 6px; font-weight: 600; font-size: .95rem; min-width: 0; }
   input, select, textarea {
     font: inherit;
+    font-size: max(16px, 1rem); /* 16 px minimum : pas de zoom automatique sur iPhone */
     font-weight: 400;
-    padding: .7em .8em;
-    border-radius: 10px;
-    border: 1px solid color-mix(in srgb, var(--texte) 20%, transparent);
+    min-height: 48px;
+    width: 100%;
+    min-width: 0;
+    padding: .7em .85em;
+    border-radius: var(--rayon-s);
+    border: 1.5px solid color-mix(in srgb, var(--texte) 16%, transparent);
     background: var(--fond);
     color: var(--texte);
+    transition: border-color .2s var(--ease), box-shadow .2s var(--ease), background-color .2s var(--ease);
+    -webkit-appearance: none; appearance: none;
+  }
+  select {
+    background-image: linear-gradient(45deg, transparent 50%, var(--principale) 50%), linear-gradient(135deg, var(--principale) 50%, transparent 50%);
+    background-position: calc(100% - 20px) 50%, calc(100% - 14px) 50%;
+    background-size: 6px 6px; background-repeat: no-repeat; padding-right: 2.4em;
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: none; border-color: var(--principale); background: #fff;
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--principale) 14%, transparent);
   }
   .bouton { justify-self: start; }
+  @media (max-width: 760px) { .formulaire .bouton { justify-self: stretch; } }
   .formulaire__message { margin: 0; font-size: .9rem; color: var(--principale); }
 </style>

@@ -9,7 +9,7 @@ const liens = sectionsActives()
 <header class="en-tete">
   <div class="conteneur en-tete__ligne">
     <a class="logo" href={url('/')}>{config.commerce.nom}</a>
-    <nav aria-label="Menu principal">
+    <nav class="nav-large" aria-label="Menu principal">
       <ul>
         {liens.map((l) => <li><a href={url(`/#${l.cle}`)}>{l.menu}</a></li>)}
       </ul>
@@ -17,19 +17,61 @@ const liens = sectionsActives()
     <a class="bouton en-tete__tel" href={`tel:${telLien(config.commerce.telephone)}`}>
       {config.commerce.telephone}
     </a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="menu-mobile" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
+  <nav id="menu-mobile" class="menu-mobile" aria-label="Menu" hidden>
+    <ul class="conteneur">
+      {liens.map((l) => <li><a href={url(`/#${l.cle}`)}>{l.menu}<span aria-hidden="true">→</span></a></li>)}
+      <li class="menu-mobile__tel">
+        <a class="bouton" href={`tel:${telLien(config.commerce.telephone)}`}>Appeler · {config.commerce.telephone}</a>
+      </li>
+    </ul>
+  </nav>
 </header>
+
+<script is:inline>
+  (function () {
+    var bouton = document.querySelector('.burger');
+    var menu = document.getElementById('menu-mobile');
+    if (!bouton || !menu) return;
+    var ouvrir = function (oui) {
+      bouton.setAttribute('aria-expanded', String(oui));
+      bouton.setAttribute('aria-label', oui ? 'Fermer le menu' : 'Ouvrir le menu');
+      if (oui) {
+        menu.hidden = false;
+        requestAnimationFrame(function () { menu.classList.add('ouvert'); });
+      } else {
+        menu.classList.remove('ouvert');
+        setTimeout(function () { if (!menu.classList.contains('ouvert')) menu.hidden = true; }, 300);
+      }
+    };
+    bouton.addEventListener('click', function () { ouvrir(bouton.getAttribute('aria-expanded') !== 'true'); });
+    menu.addEventListener('click', function (e) { if (e.target.closest('a')) ouvrir(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') ouvrir(false); });
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.en-tete') && bouton.getAttribute('aria-expanded') === 'true') ouvrir(false);
+    });
+  })();
+</script>
 
 <style>
   .en-tete {
     position: sticky;
     top: 0;
     z-index: 40;
-    background: color-mix(in srgb, var(--fond) 92%, transparent);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid color-mix(in srgb, var(--principale) 10%, transparent);
+    background: color-mix(in srgb, var(--fond) 86%, transparent);
+    backdrop-filter: saturate(1.4) blur(14px);
+    -webkit-backdrop-filter: saturate(1.4) blur(14px);
+    border-bottom: 1px solid transparent;
+    transition: box-shadow .3s var(--ease), border-color .3s var(--ease);
   }
-  .en-tete__ligne { display: flex; align-items: center; gap: 24px; min-height: 68px; }
+  .en-tete:global(.defile) {
+    border-color: color-mix(in srgb, var(--principale) 10%, transparent);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, .06);
+  }
+  .en-tete__ligne { display: flex; align-items: center; gap: 24px; min-height: var(--entete); }
   .logo {
     font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
     font-size: 1.45rem;
@@ -38,11 +80,71 @@ const liens = sectionsActives()
     color: var(--principale);
     white-space: nowrap;
   }
-  nav { margin-left: auto; }
-  ul { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; }
-  nav a { text-decoration: none; color: var(--texte); font-size: .95rem; }
-  nav a:hover { color: var(--principale); }
-  .en-tete__tel { padding: .55em 1.1em; font-size: .95rem; white-space: nowrap; }
-  @media (max-width: 1000px) { nav { display: none; } .en-tete__tel { margin-left: auto; } }
-  @media (max-width: 720px) { .en-tete__tel { display: none; } }
+  .nav-large { margin-left: auto; }
+  .nav-large ul { display: flex; gap: 2px; list-style: none; margin: 0; padding: 0; }
+  .nav-large a {
+    display: block; padding: .45em .6em; border-radius: 999px; white-space: nowrap;
+    text-decoration: none; color: var(--texte); font-size: .92rem;
+    transition: background-color .2s var(--ease), color .2s var(--ease);
+  }
+  .nav-large a:hover { color: var(--principale); background: color-mix(in srgb, var(--principale) 7%, transparent); }
+  .en-tete__tel { min-height: 42px; padding: .5em 1.1em; font-size: .95rem; white-space: nowrap; }
+
+  .burger {
+    display: none;
+    margin-left: auto;
+    width: 48px; height: 48px;
+    border: 0; border-radius: 14px;
+    background: color-mix(in srgb, var(--principale) 8%, transparent);
+    cursor: pointer; touch-action: manipulation;
+    position: relative;
+  }
+  .burger span {
+    position: absolute; left: 14px; right: 14px; height: 2px; border-radius: 2px;
+    background: var(--principale);
+    transition: transform .3s var(--ease), opacity .2s var(--ease);
+  }
+  .burger span:nth-child(1) { top: 17px; }
+  .burger span:nth-child(2) { top: 23px; }
+  .burger span:nth-child(3) { top: 29px; }
+  .burger[aria-expanded='true'] span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .burger[aria-expanded='true'] span:nth-child(2) { opacity: 0; }
+  .burger[aria-expanded='true'] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+  .menu-mobile {
+    position: absolute; left: 0; right: 0; top: 100%;
+    background: var(--fond);
+    border-bottom: 1px solid color-mix(in srgb, var(--principale) 10%, transparent);
+    box-shadow: 0 24px 40px rgba(0, 0, 0, .10);
+    max-height: calc(100dvh - var(--entete));
+    overflow-y: auto;
+    opacity: 0; transform: translateY(-8px);
+    transition: opacity .25s var(--ease), transform .3s var(--ease);
+  }
+  .menu-mobile:global(.ouvert) { opacity: 1; transform: none; }
+  .menu-mobile ul { list-style: none; margin: 0 auto; padding: 8px 0 20px; }
+  .menu-mobile li a:not(.bouton) {
+    display: flex; justify-content: space-between; align-items: center;
+    min-height: 54px; padding: 0 4px;
+    font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+    font-size: 1.3rem; color: var(--principale); text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--principale) 8%, transparent);
+  }
+  .menu-mobile li a:not(.bouton) span { color: var(--accent-texte); font-family: system-ui, sans-serif; }
+  .menu-mobile li a:not(.bouton):active { background: color-mix(in srgb, var(--principale) 6%, transparent); }
+  .menu-mobile__tel { padding-top: 18px; }
+  .menu-mobile__tel .bouton { width: 100%; }
+
+  @media (max-width: 1180px) {
+    .nav-large { display: none; }
+    .burger { display: block; }
+    .en-tete__tel { margin-left: auto; }
+  }
+  @media (max-width: 760px) {
+    .en-tete__tel { display: none; }
+    .logo { font-size: 1.3rem; }
+  }
+  @media (min-width: 1181px) {
+    .menu-mobile { display: none; }
+  }
 </style>
