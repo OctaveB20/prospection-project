@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Pivoines">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Pivoines">
 <defs><g id="p"><circle r="80"/><circle r="62" fill="#fff" opacity=".18"/><circle r="44" fill="#000" opacity=".06"/><circle r="28" fill="#fff" opacity=".22"/><circle r="14" fill="#000" opacity=".08"/></g>
 <ellipse id="l" rx="22" ry="60" fill="#7f9a6e"/></defs>
 <rect width="800" height="600" fill="#f7e9ea"/>

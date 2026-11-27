@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Plante en pot">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Plante en pot">
 <rect width="800" height="600" fill="#eaf0ea"/>
 <rect x="520" y="60" width="200" height="260" rx="8" fill="#dfe8df"/><path d="M620 60v260M520 190h200" stroke="#eaf0ea" stroke-width="10"/>
 <rect y="500" width="800" height="100" fill="#d9d0c3"/>

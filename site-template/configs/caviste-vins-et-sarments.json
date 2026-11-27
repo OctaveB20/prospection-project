@@ -34,6 +34,7 @@
     ]
   },
   "theme": {
+    "style": "editorial",
     "principale": "#6b1e2e",
     "accent": "#9a7430",
     "fond": "#faf7f2",

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Bouquet de fleurs">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Bouquet de fleurs">
 <defs>
 <g id="fl"><g><ellipse cy="-24" rx="15" ry="24"/><ellipse cy="-24" rx="15" ry="24" transform="rotate(72)"/><ellipse cy="-24" rx="15" ry="24" transform="rotate(144)"/><ellipse cy="-24" rx="15" ry="24" transform="rotate(216)"/><ellipse cy="-24" rx="15" ry="24" transform="rotate(288)"/></g><circle r="10" fill="#f2c96b"/></g>
 <g id="rose"><circle r="34"/><circle r="24" fill="#000" opacity=".08"/><path d="M-14 0a14 14 0 1 1 14 14" fill="none" stroke="#000" stroke-opacity=".18" stroke-width="5"/></g>

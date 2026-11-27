@@ -1,0 +1,127 @@
+---
+// Démo uniquement : changer de style visuel en direct pour montrer plusieurs aperçus au prospect.
+// Le choix est mémorisé et reporté dans l'adresse (?style=…) : on peut envoyer un lien
+// qui ouvre directement le bon style. En production, le style est fixé par config.theme.style.
+import { config } from '../lib/config';
+
+const STYLES = [
+  { id: 'editorial', nom: 'Éditorial', aide: 'Chic, façon magazine' },
+  { id: 'organique', nom: 'Organique', aide: 'Chaleureux, tout en rondeurs' },
+  { id: 'immersif', nom: 'Immersif', aide: 'Plein écran, contrasté' },
+];
+const cle = `demo-style:${config.slug}`;
+---
+<div class="choix-style" data-cle={cle}>
+  <button class="choix-style__ouvrir" type="button" aria-expanded="false" aria-controls="choix-style-liste">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <circle cx="13.5" cy="6.5" r="1.5"/><circle cx="17.5" cy="10.5" r="1.5"/><circle cx="8.5" cy="7.5" r="1.5"/><circle cx="6.5" cy="12.5" r="1.5"/>
+      <path d="M12 2a10 10 0 0 0 0 20c1.1 0 2-.9 2-2 0-.5-.2-1-.5-1.3-.3-.4-.5-.8-.5-1.3 0-1.1.9-2 2-2h2.4A5.6 5.6 0 0 0 22 9.8C22 5.5 17.5 2 12 2z"/>
+    </svg>
+    <span>Style : <strong data-style-courant></strong></span>
+  </button>
+  <div id="choix-style-liste" class="choix-style__liste" role="radiogroup" aria-label="Style visuel de la démo" hidden>
+    <p class="choix-style__titre">Choisissez un style</p>
+    {STYLES.map((s) => (
+      <button type="button" role="radio" aria-checked="false" data-choix={s.id}>
+        <span class={`choix-style__apercu choix-style__apercu--${s.id}`} aria-hidden="true"></span>
+        <span><strong>{s.nom}</strong><small>{s.aide}</small></span>
+      </button>
+    ))}
+  </div>
+</div>
+
+<script is:inline define:vars={{ STYLES }}>
+  (function () {
+    var racine = document.querySelector('.choix-style');
+    if (!racine) return;
+    var cle = racine.getAttribute('data-cle');
+    var ouvrir = racine.querySelector('.choix-style__ouvrir');
+    var liste = racine.querySelector('.choix-style__liste');
+    var courant = racine.querySelector('[data-style-courant]');
+    var nom = function (id) { return (STYLES.filter(function (s) { return s.id === id; })[0] || STYLES[0]).nom; };
+
+    var appliquer = function (id, memoriser) {
+      document.documentElement.classList.add('change-style');
+      document.documentElement.dataset.style = id;
+      courant.textContent = nom(id);
+      liste.querySelectorAll('[data-choix]').forEach(function (b) {
+        b.setAttribute('aria-checked', String(b.getAttribute('data-choix') === id));
+      });
+      if (memoriser) {
+        try { localStorage.setItem(cle, id); } catch (e) {}
+        var u = new URL(location.href); u.searchParams.set('style', id);
+        history.replaceState(null, '', u);
+      }
+      setTimeout(function () { document.documentElement.classList.remove('change-style'); }, 500);
+      window.dispatchEvent(new Event('scroll'));
+    };
+    var basculer = function (oui) {
+      ouvrir.setAttribute('aria-expanded', String(oui));
+      liste.hidden = !oui;
+    };
+
+    appliquer(document.documentElement.dataset.style || 'editorial', false);
+    ouvrir.addEventListener('click', function () { basculer(liste.hidden); });
+    liste.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-choix]');
+      if (!b) return;
+      appliquer(b.getAttribute('data-choix'), true);
+      basculer(false);
+    });
+    document.addEventListener('click', function (e) { if (!e.target.closest('.choix-style')) basculer(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') basculer(false); });
+  })();
+</script>
+
+<style>
+  .choix-style {
+    position: fixed; z-index: 60;
+    right: 16px; bottom: calc(16px + env(safe-area-inset-bottom));
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+  .choix-style__ouvrir {
+    display: inline-flex; align-items: center; gap: 8px;
+    min-height: 46px; padding: 0 16px 0 14px;
+    border: 0; border-radius: 999px; cursor: pointer; touch-action: manipulation;
+    background: #1d1616; color: #fff; font: 600 .9rem/1 system-ui, sans-serif;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
+  }
+  .choix-style__ouvrir strong { font-weight: 700; }
+  .choix-style__liste {
+    position: absolute; right: 0; bottom: calc(100% + 10px);
+    width: min(300px, calc(100vw - 32px));
+    background: #fff; color: #1d1616; border-radius: 18px; padding: 10px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, .25);
+    animation: monte .25s cubic-bezier(.2, .7, .2, 1);
+  }
+  .choix-style__titre { margin: 4px 8px 8px; font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; color: #6b6363; font-weight: 700; }
+  .choix-style__liste button {
+    display: flex; align-items: center; gap: 12px; width: 100%;
+    min-height: 56px; padding: 8px; border: 0; border-radius: 12px;
+    background: transparent; text-align: left; cursor: pointer; color: inherit; font: inherit;
+  }
+  .choix-style__liste button:hover { background: #f4efec; }
+  .choix-style__liste button[aria-checked='true'] { background: #f1e7e3; }
+  .choix-style__liste strong { display: block; font-size: .98rem; }
+  .choix-style__liste small { display: block; font-size: .82rem; color: #6b6363; }
+  .choix-style__apercu { flex: none; width: 40px; height: 40px; border-radius: 10px; background: var(--clair); position: relative; overflow: hidden; }
+  .choix-style__apercu::after { content: ''; position: absolute; }
+  .choix-style__apercu--editorial { border: 1px solid #cfc6c0; border-radius: 3px; }
+  .choix-style__apercu--editorial::after { left: 8px; right: 8px; top: 12px; height: 3px; background: var(--principale); box-shadow: 0 7px 0 -1px #b9aea8, 0 13px 0 -1px #b9aea8; }
+  .choix-style__apercu--organique { border-radius: 50% 40% 55% 45%; background: color-mix(in srgb, var(--accent) 35%, var(--clair)); }
+  .choix-style__apercu--organique::after { inset: 9px; border-radius: 50%; background: var(--principale); opacity: .85; }
+  .choix-style__apercu--immersif { background: linear-gradient(to top, #120c0c, var(--principale)); }
+  .choix-style__apercu--immersif::after { left: 8px; bottom: 8px; width: 20px; height: 4px; background: #fff; border-radius: 2px; }
+  :global(html.change-style) body, :global(html.change-style) body * {
+    transition: background-color .45s ease, color .45s ease, border-radius .45s ease, box-shadow .45s ease !important;
+  }
+  @media (max-width: 760px) {
+    /* Mobile : pastille ronde, au-dessus de la barre Appeler / Itinéraire seulement quand elle est visible */
+    .choix-style { bottom: calc(16px + env(safe-area-inset-bottom)); right: 12px; transition: bottom .4s cubic-bezier(.2, .7, .2, 1); }
+    :global(body:has(.barre-mobile.visible)) .choix-style { bottom: calc(86px + env(safe-area-inset-bottom)); }
+    .choix-style__ouvrir { width: 48px; height: 48px; min-height: 0; padding: 0; justify-content: center; }
+    .choix-style__ouvrir > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  }
+  @keyframes monte { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  @media print { .choix-style { display: none; } }
+</style>

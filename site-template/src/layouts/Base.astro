@@ -1,10 +1,20 @@
 ---
+import '@fontsource/cormorant-garamond/latin-500.css';
+import '@fontsource/cormorant-garamond/latin-600.css';
+import '@fontsource/cormorant-garamond/latin-500-italic.css';
+import '@fontsource-variable/inter';
+import '@fontsource-variable/fraunces';
+import '@fontsource-variable/nunito-sans';
+import '@fontsource-variable/playfair-display';
+import '@fontsource-variable/manrope';
 import '../styles/global.css';
+import '../styles/styles.css';
 import BandeauDemo from '../components/BandeauDemo.astro';
 import EnTete from '../components/EnTete.astro';
 import PiedDePage from '../components/PiedDePage.astro';
 import BarreMobile from '../components/BarreMobile.astro';
 import Interactions from '../components/Interactions.astro';
+import ChoixStyle from '../components/ChoixStyle.astro';
 import { config, estDemo, url, telLien } from '../lib/config';
 
 interface Props {
@@ -61,12 +71,23 @@ const jsonLd = {
 };
 
 const a = c.analytics;
+const STYLES = ['editorial', 'organique', 'immersif'];
+const style = t.style ?? 'editorial';
 ---
 <!doctype html>
-<html lang="fr" style={styleTheme}>
+<html lang="fr" style={styleTheme} data-style={style}>
   <head>
     <meta charset="utf-8" />
     <script is:inline>document.documentElement.classList.add('js');</script>
+    {estDemo && (
+      <script is:inline define:vars={{ styles: STYLES, cle: `demo-style:${c.slug}` }}>
+        // Démo : style choisi via ?style=… (lien envoyé au prospect) ou mémorisé, appliqué avant l'affichage.
+        try {
+          var demande = new URLSearchParams(location.search).get('style') || localStorage.getItem(cle);
+          if (styles.indexOf(demande) !== -1) document.documentElement.dataset.style = demande;
+        } catch (e) {}
+      </script>
+    )}
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{titrePage}</title>
     <meta name="description" content={descriptionPage} />
@@ -94,5 +115,6 @@ const a = c.analytics;
     <PiedDePage />
     <BarreMobile />
     <Interactions />
+    {estDemo && <ChoixStyle />}
   </body>
 </html>

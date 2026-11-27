@@ -56,6 +56,9 @@ export function validerConfig(cfg) {
   requis(cfg.commerce?.adresse?.rue, 'commerce.adresse.rue');
   requis(cfg.commerce?.adresse?.codePostal, 'commerce.adresse.codePostal');
   requis(cfg.commerce?.adresse?.ville, 'commerce.adresse.ville');
+  if (cfg.theme?.style && !['editorial', 'organique', 'immersif'].includes(cfg.theme.style)) {
+    e.push(`theme.style inconnu : ${cfg.theme.style} (editorial, organique, immersif)`);
+  }
   requis(cfg.seo?.titre, 'seo.titre');
   requis(cfg.seo?.description, 'seo.description');
 

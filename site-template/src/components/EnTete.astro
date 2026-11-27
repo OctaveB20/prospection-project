@@ -73,7 +73,7 @@ const liens = sectionsActives()
   }
   .en-tete__ligne { display: flex; align-items: center; gap: 24px; min-height: var(--entete); }
   .logo {
-    font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+    font-family: var(--police-titre);
     font-size: 1.45rem;
     font-weight: 600;
     text-decoration: none;
@@ -126,11 +126,11 @@ const liens = sectionsActives()
   .menu-mobile li a:not(.bouton) {
     display: flex; justify-content: space-between; align-items: center;
     min-height: 54px; padding: 0 4px;
-    font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+    font-family: var(--police-titre);
     font-size: 1.3rem; color: var(--principale); text-decoration: none;
     border-bottom: 1px solid color-mix(in srgb, var(--principale) 8%, transparent);
   }
-  .menu-mobile li a:not(.bouton) span { color: var(--accent-texte); font-family: system-ui, sans-serif; }
+  .menu-mobile li a:not(.bouton) span { color: var(--accent-texte); font-family: var(--police-texte); }
   .menu-mobile li a:not(.bouton):active { background: color-mix(in srgb, var(--principale) 6%, transparent); }
   .menu-mobile__tel { padding-top: 18px; }
   .menu-mobile__tel .bouton { width: 100%; }

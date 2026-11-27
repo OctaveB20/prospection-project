@@ -38,6 +38,19 @@ Aucune clé API n'est nécessaire pour construire un site : toutes les données 
 
 Offre : Base 350 €, Plus 450 €, maintenance 20 €/mois (`docs/offre-et-prix.md`). **Le build échoue si une config `base` active une section réservée à Plus.**
 
+## 3 bis. Styles visuels
+`theme.style` choisit l'un des trois styles, avec les couleurs de `theme` :
+
+| Style | Esprit | Polices (hébergées avec le site) |
+|---|---|---|
+| `editorial` (défaut) | Magazine haut de gamme : filets fins, sections numérotées, grands titres | Cormorant Garamond + Inter |
+| `organique` | Chaleureux : formes arrondies, grain papier, image en galet | Fraunces + Nunito Sans |
+| `immersif` | Accueil plein écran sur la photo, sections sombres, contrastes forts | Playfair Display + Manrope |
+
+- **En démo**, un sélecteur flottant (« Style : … ») permet de passer d'un style à l'autre devant le prospect. Le choix est mémorisé et reporté dans l'adresse : envoyer `…/<slug>/?style=immersif` ouvre directement ce style.
+- **En production**, pas de sélecteur : le style est fixé par la config.
+- Chaque style ne télécharge que ses polices (60 à 115 Ko), sans appel à Google Fonts.
+
 ## 4. Règles de conformité (contrôlées au build quand c'est possible)
 - **Photos Google interdites** : le build refuse toute image venant d'un domaine Google (`googleusercontent`, `maps.googleapis`, `ggpht`…). On utilise les visuels génériques par métier (`public/visuels/<metier>/`) ou les photos fournies par le client.
 - **Données Places** (nom, note, avis, horaires) : copiées dans la config au moment de générer la démo, puis rafraîchies avant la mise en ligne. Seul `placeId` est conservé durablement côté CRM.
