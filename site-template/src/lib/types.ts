@@ -57,7 +57,11 @@ export interface SiteConfig {
     /** Mentions légales obligatoires du métier, affichées en pied de page (ex. loi Évin pour l'alcool). */
     avertissements?: string[];
   };
-  theme: { principale: string; accent: string; fond: string; texte: string; clair: string };
+  theme: {
+    principale: string; accent: string; fond: string; texte: string; clair: string;
+    /** Style visuel : editorial (défaut), organique ou immersif */
+    style?: 'editorial' | 'organique' | 'immersif';
+  };
   seo: { titre: string; description: string; typeSchema?: string };
   analytics?: { plausibleDomaine?: string | null; umamiId?: string | null; umamiSrc?: string | null };
   ordre: string[];

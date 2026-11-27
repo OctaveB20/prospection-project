@@ -30,6 +30,7 @@
     }
   },
   "theme": {
+    "style": "organique",
     "principale": "#7a3b4f",
     "accent": "#c9786b",
     "fond": "#fbf6f2",

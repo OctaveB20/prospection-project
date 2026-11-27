@@ -14,5 +14,7 @@ export default defineConfig({
   // être déployées ensemble sur demo.<domaine>.
   outDir: estDemo ? `./dist/${cfg.slug}` : './dist',
   trailingSlash: 'ignore',
+  // Portée des styles de composants sans priorité CSS : les styles de thème (styles.css) l'emportent.
+  scopedStyleStrategy: 'where',
   build: { format: 'directory' },
 });

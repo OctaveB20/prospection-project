@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Bouteilles de vin">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Bouteilles de vin">
 <defs><path id="b" d="M-14 -190h28v70c0 18 34 34 34 78v230c0 10-8 18-18 18h-60c-10 0-18-8-18-18v-230c0-44 34-60 34-78z"/></defs>
 <rect width="800" height="600" fill="#efe6da"/>
 <circle cx="620" cy="140" r="170" fill="#e8dccb"/>

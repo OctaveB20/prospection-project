@@ -31,6 +31,23 @@
     window.addEventListener('scroll', majEntete, { passive: true });
     majEntete();
 
+    // 2 bis. Parallaxe douce sur l'image d'accueil ; intensité fixée par chaque style (--parallaxe).
+    var imgAccueil = document.querySelector('.accueil__visuel img');
+    if (imgAccueil && !calme) {
+      imgAccueil.style.transition = 'none';
+      var attente = false;
+      var bouger = function () {
+        attente = false;
+        var f = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--parallaxe')) || 0;
+        var y = Math.min(window.scrollY, window.innerHeight * 1.2);
+        imgAccueil.style.transform = f ? 'translate3d(0,' + (y * f).toFixed(1) + 'px,0) scale(' + (1 + f * 0.35).toFixed(3) + ')' : '';
+      };
+      window.addEventListener('scroll', function () {
+        if (!attente) { attente = true; requestAnimationFrame(bouger); }
+      }, { passive: true });
+      bouger();
+    }
+
     // 3. Barre Appeler / Itinéraire : apparaît une fois les boutons de l'accueil sortis de l'écran.
     var barre = document.querySelector('.barre-mobile');
     var boutonsAccueil = document.querySelector('.accueil__boutons');

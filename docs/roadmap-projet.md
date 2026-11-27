@@ -79,6 +79,7 @@ Scanner (Google Places + PageSpeed) → Score → CRM → Génération démo Ast
 ## Changements de direction
 | Date | Changement | Pourquoi |
 |---|---|---|
+| 27/11/2026 | 3 styles visuels (éditorial, organique, immersif) au choix dans la config, avec un sélecteur sur les démos ; polices auto-hébergées | Montrer plusieurs aperçus au prospect sans refaire de démo |
 | 12/11/2026 | Base Supabase (Postgres) pour la version en ligne, SQLite gardé en local ; accès protégé par mot de passe | Sur Streamlit Cloud le disque est effacé à chaque redémarrage |
 | 12/11/2026 | Back-office réécrit depuis le prototype prospect-automation, sans NLU, sans modèle d'email Bookline ni clés de l'ancien projet | Coller aux critères du projet et repartir avec ses propres clés |
 | 11/11/2026 | Offre ramenée à 2 formules : Base 350 €, Plus 450 € (réservation, anglais, devis, carte) + maintenance 20 €/mois. Fin de Premium et des modes annuel / mensuel sans création | Offre plus simple à vendre en boutique |

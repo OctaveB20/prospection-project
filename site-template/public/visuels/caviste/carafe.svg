@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Carafe à décanter">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Carafe à décanter">
 <rect width="800" height="600" fill="#f4ece3"/>
 <circle cx="600" cy="160" r="140" fill="#ecdfd0"/>
 <rect y="500" width="800" height="100" fill="#dcc8b0"/>

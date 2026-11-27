@@ -1,0 +1,202 @@
+/* Trois styles visuels pour le même template, choisis par config.theme.style
+   (data-style sur <html>). Les couleurs viennent toujours de config.theme.
+   - editorial : esprit magazine haut de gamme, filets fins, grands titres serif
+   - organique : chaleureux, formes arrondies, grain papier
+   - immersif  : accueil plein écran, sections sombres, contrastes forts        */
+
+/* =====================================================================
+   1. ÉDITORIAL CHIC
+   ===================================================================== */
+html[data-style='editorial'] {
+  --police-titre: 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif;
+  --police-texte: 'Inter Variable', system-ui, -apple-system, sans-serif;
+  --graisse-titre: 500;
+  --rayon: 3px;
+  --rayon-s: 2px;
+  --ombre: none;
+  --ombre-forte: 0 24px 48px rgba(0, 0, 0, .08);
+  --filet: color-mix(in srgb, var(--texte) 14%, transparent);
+  --parallaxe: .07;
+}
+html[data-style='editorial'] body { font-size: 1rem; letter-spacing: -.005em; }
+html[data-style='editorial'] h1 { font-size: clamp(3.1rem, 9vw, 6.4rem); line-height: .96; letter-spacing: -.025em; }
+html[data-style='editorial'] h2 { font-size: clamp(2.3rem, 5.6vw, 3.8rem); line-height: 1; letter-spacing: -.015em; }
+html[data-style='editorial'] h3 { font-size: 1.55rem; font-weight: 600; }
+
+/* Sections séparées par des filets fins et numérotées, comme un magazine */
+html[data-style='editorial'] main { counter-reset: rubrique; }
+html[data-style='editorial'] main > .section { counter-increment: rubrique; }
+html[data-style='editorial'] main > .section h2::before {
+  content: counter(rubrique, decimal-leading-zero);
+  display: block;
+  font-family: var(--police-texte);
+  font-size: .78rem; font-weight: 600; letter-spacing: .22em;
+  color: var(--accent-texte);
+  margin-bottom: 1.1rem;
+}
+html[data-style='editorial'] .section--claire { background: transparent; }
+html[data-style='editorial'] main > .section { border-top: 1px solid var(--filet); }
+html[data-style='editorial'] .surtitre { letter-spacing: .24em; font-size: .72rem; }
+
+html[data-style='editorial'] .bouton {
+  border-radius: 2px; text-transform: uppercase; letter-spacing: .14em;
+  font-size: .78rem; font-weight: 600; padding: 1.15em 2em;
+}
+html[data-style='editorial'] .carte,
+html[data-style='editorial'] .produit {
+  background: color-mix(in srgb, #fff 55%, var(--fond));
+  border: 1px solid var(--filet); box-shadow: none;
+}
+html[data-style='editorial'] .pastille { border-radius: 2px; box-shadow: none; border: 1px solid var(--filet); background: transparent; }
+html[data-style='editorial'] .evenement__date { border-radius: 2px; box-shadow: none; }
+
+/* Accueil : grande image verticale avec un cadre décalé */
+html[data-style='editorial'] .accueil__accroche {
+  font-family: var(--police-titre); font-style: italic; font-weight: 500;
+  font-size: clamp(1.45rem, 3vw, 2rem); line-height: 1.25; max-width: 28ch;
+}
+html[data-style='editorial'] .accueil__visuel::before {
+  background: none; border: 1px solid var(--accent);
+  border-radius: 0; inset: 18px -18px -18px 18px;
+}
+html[data-style='editorial'] .accueil__visuel .visuel { aspect-ratio: 4 / 5; box-shadow: var(--ombre-forte); }
+html[data-style='editorial'] .logo { font-size: 1.7rem; font-weight: 600; letter-spacing: -.01em; }
+@media (max-width: 860px) {
+  html[data-style='editorial'] .accueil__visuel .visuel { aspect-ratio: 4 / 3; }
+  html[data-style='editorial'] .accueil__visuel::before { inset: 12px -10px -12px 10px; }
+}
+
+/* =====================================================================
+   2. CHALEUREUX ET ORGANIQUE
+   ===================================================================== */
+html[data-style='organique'] {
+  --police-titre: 'Fraunces Variable', 'Iowan Old Style', Georgia, serif;
+  --police-texte: 'Nunito Sans Variable', system-ui, -apple-system, sans-serif;
+  --graisse-titre: 620;
+  --rayon: 30px;
+  --rayon-s: 20px;
+  --ombre: 0 2px 4px color-mix(in srgb, var(--principale) 6%, transparent), 0 14px 34px color-mix(in srgb, var(--principale) 12%, transparent);
+  --ombre-forte: 0 4px 8px color-mix(in srgb, var(--principale) 8%, transparent), 0 26px 56px color-mix(in srgb, var(--principale) 18%, transparent);
+  --parallaxe: .05;
+}
+/* Grain papier très léger (SVG généré, aucun fichier externe) */
+html[data-style='organique'] body {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+html[data-style='organique'] h1 { font-size: clamp(2.7rem, 8vw, 5rem); letter-spacing: -.02em; }
+html[data-style='organique'] h2 { letter-spacing: -.015em; }
+html[data-style='organique'] .surtitre {
+  text-transform: none; letter-spacing: .01em;
+  font-family: var(--police-titre); font-style: italic; font-weight: 500; font-size: 1.08rem;
+}
+html[data-style='organique'] .surtitre::before { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); opacity: 1; }
+
+/* Sections claires en grands blocs arrondis, décollés des bords */
+html[data-style='organique'] .section--claire {
+  margin-inline: clamp(8px, 2vw, 24px);
+  border-radius: clamp(28px, 5vw, 56px);
+}
+html[data-style='organique'] .bouton { box-shadow: 0 6px 16px color-mix(in srgb, var(--principale) 22%, transparent); }
+html[data-style='organique'] .bouton--secondaire { box-shadow: none; background: color-mix(in srgb, #fff 70%, transparent); }
+html[data-style='organique'] .carte { border: 0; }
+html[data-style='organique'] .evenement__date { border-radius: 24px 24px 24px 6px; }
+
+/* Accueil : image en forme de galet qui respire doucement */
+html[data-style='organique'] .accueil__visuel .visuel {
+  aspect-ratio: 1 / 1;
+  border-radius: 58% 42% 52% 48% / 48% 55% 45% 52%;
+  animation: galet 14s ease-in-out infinite alternate;
+}
+html[data-style='organique'] .accueil__visuel::before {
+  inset: 6% -5% -6% 7%;
+  border-radius: 45% 55% 40% 60% / 55% 45% 60% 40%;
+  background: color-mix(in srgb, var(--accent) 28%, var(--clair));
+  animation: galet 18s ease-in-out infinite alternate-reverse;
+}
+@keyframes galet {
+  0%   { border-radius: 58% 42% 52% 48% / 48% 55% 45% 52%; }
+  50%  { border-radius: 45% 55% 60% 40% / 55% 42% 58% 45%; }
+  100% { border-radius: 52% 48% 42% 58% / 42% 58% 48% 52%; }
+}
+html[data-style='organique'] .logo { font-style: italic; }
+@media (max-width: 860px) {
+  html[data-style='organique'] .accueil__visuel .visuel { aspect-ratio: 5 / 4; }
+}
+
+/* =====================================================================
+   3. MODERNE ET IMMERSIF
+   ===================================================================== */
+html[data-style='immersif'] {
+  --police-titre: 'Playfair Display Variable', 'Iowan Old Style', Georgia, serif;
+  --police-texte: 'Manrope Variable', system-ui, -apple-system, sans-serif;
+  --graisse-titre: 650;
+  --rayon: 16px;
+  --rayon-s: 12px;
+  --sombre: color-mix(in srgb, var(--principale) 32%, #0c0909);
+  --sur-sombre: #f3ece4;
+  --parallaxe: .28;
+}
+html[data-style='immersif'] h1 { font-size: clamp(3.2rem, 11vw, 7.4rem); line-height: .95; letter-spacing: -.03em; }
+html[data-style='immersif'] h2 { font-size: clamp(2.2rem, 6vw, 3.9rem); letter-spacing: -.02em; }
+
+/* En-tête sombre et vitré */
+html[data-style='immersif'] .en-tete { background: color-mix(in srgb, var(--sombre) 82%, transparent); }
+html[data-style='immersif'] .en-tete .logo,
+html[data-style='immersif'] .nav-large a { color: var(--sur-sombre); }
+html[data-style='immersif'] .nav-large a:hover { background: rgba(255, 255, 255, .1); color: #fff; }
+html[data-style='immersif'] .burger { background: rgba(255, 255, 255, .1); }
+html[data-style='immersif'] .burger span { background: #fff; }
+html[data-style='immersif'] .menu-mobile { background: var(--sombre); }
+html[data-style='immersif'] .menu-mobile li a:not(.bouton) { color: #fff; border-color: rgba(255, 255, 255, .12); }
+
+/* Accueil plein écran : la photo en fond, le texte par-dessus */
+html[data-style='immersif'] .accueil {
+  position: relative; isolation: isolate;
+  min-height: min(calc(100svh - var(--entete) - 24px), 900px);
+  display: flex; align-items: flex-end;
+  padding: 120px 0 clamp(40px, 8vw, 96px);
+  color: #fff;
+}
+@media (max-width: 760px) {
+  html[data-style='immersif'] .accueil { padding-top: 96px; padding-bottom: 32px; }
+  html[data-style='immersif'] h1 { font-size: clamp(2.8rem, 13vw, 4rem); }
+}
+html[data-style='immersif'] .accueil__grille { grid-template-columns: 1fr; width: min(1120px, 100% - 2 * var(--gouttiere)); }
+html[data-style='immersif'] .accueil__visuel { position: absolute; inset: 0; z-index: -1; margin: 0; order: 0; }
+html[data-style='immersif'] .accueil__visuel::before {
+  inset: 0; border-radius: 0; z-index: 1;
+  background: linear-gradient(to top, rgba(8, 5, 5, .9) 0%, rgba(8, 5, 5, .55) 45%, rgba(8, 5, 5, .25) 100%);
+}
+html[data-style='immersif'] .accueil__visuel .visuel { height: 100%; aspect-ratio: auto; border-radius: 0; box-shadow: none; }
+html[data-style='immersif'] .accueil h1,
+html[data-style='immersif'] .accueil__accroche,
+html[data-style='immersif'] .accueil .surtitre,
+html[data-style='immersif'] .accueil__note { color: #fff; }
+html[data-style='immersif'] .accueil__accroche { max-width: 40ch; font-size: clamp(1.1rem, 2.4vw, 1.35rem); }
+html[data-style='immersif'] .accueil__note span:last-child { color: rgba(255, 255, 255, .75); }
+html[data-style='immersif'] .accueil .pastille {
+  background: rgba(255, 255, 255, .14); color: #fff; box-shadow: none;
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, .2);
+}
+html[data-style='immersif'] .accueil .bouton { background: #fff; border-color: #fff; color: var(--principale); }
+html[data-style='immersif'] .accueil .bouton--secondaire { background: transparent; color: #fff; border-color: rgba(255, 255, 255, .7); }
+@media (hover: hover) {
+  html[data-style='immersif'] .accueil .bouton:hover { background: var(--clair); }
+  html[data-style='immersif'] .accueil .bouton--secondaire:hover { background: rgba(255, 255, 255, .12); color: #fff; }
+}
+
+/* Sections claires → sections sombres, cartes en verre clair */
+html[data-style='immersif'] .section--claire { background: var(--sombre); color: var(--sur-sombre); }
+html[data-style='immersif'] .section--claire h2,
+html[data-style='immersif'] .section--claire .avis__note { color: #fff; }
+html[data-style='immersif'] .section--claire .section__intro,
+html[data-style='immersif'] .section--claire .tarifs__note { color: rgba(243, 236, 228, .75); }
+html[data-style='immersif'] .section--claire .surtitre { color: var(--accent); }
+html[data-style='immersif'] .section--claire a:not(.bouton) { color: #fff; }
+html[data-style='immersif'] .section--claire .carte { color: var(--texte); }
+html[data-style='immersif'] .section--claire .carte a:not(.bouton) { color: var(--principale); }
+html[data-style='immersif'] .section--claire .bouton--secondaire { color: #fff; border-color: rgba(255, 255, 255, .7); }
+html[data-style='immersif'] .carte { box-shadow: 0 1px 2px rgba(0, 0, 0, .06), 0 20px 44px rgba(0, 0, 0, .12); }
+html[data-style='immersif'] .visuel--zoom:hover img { transform: scale(1.07); }
+html[data-style='immersif'] .pied { background: var(--sombre); }
